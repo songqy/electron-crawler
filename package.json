@@ -1,0 +1,119 @@
+{
+  "name": "electron-crawler",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "npx webpack-dev-server --config ./config/webpack.renderer.dev.config.js",
+    "start-main": "electron ./build/main.js",
+    "start-old": "electron .",
+    "start-main-dev": "cross-env NODE_ENV=development electron -r ./scripts/BabelRegister.js ./src/main.ts",
+    "build": "concurrently \"npm run build-main\" \"npm run build-renderer\"",
+    "build-main": "npx webpack --config ./config/webpack.main.config.js",
+    "build-renderer": "npx webpack --config ./config/webpack.renderer.config.js",
+    "package-win": "npm run build && electron-builder build --win --x64",
+    "package-linux": "npm run build && electron-builder build --liux",
+    "package-mac": "npm run build && electron-builder build --mac"
+  },
+  "repository": "",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "vue",
+    "demo"
+  ],
+  "author": "songqy",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@babel/register": "^7.10.5",
+    "@types/node": "^12",
+    "@types/webpack": "^4.41.21",
+    "@typescript-eslint/eslint-plugin": "^3.9.1",
+    "@typescript-eslint/parser": "^3.9.1",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-component": "^1.1.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "concurrently": "^5.3.0",
+    "cross-env": "^7.0.2",
+    "css-loader": "^4.2.1",
+    "electron": "^9.2.0",
+    "electron-builder": "^22.8.0",
+    "electron-devtools-installer": "^3.1.1",
+    "eslint": "^7.6.0",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.3.0",
+    "mini-css-extract-plugin": "^0.10.0",
+    "typescript": "^3.9.7",
+    "url-loader": "^4.1.0",
+    "vue-loader": "^15.9.3",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.1.1",
+    "webpack-node-externals": "^2.5.0"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "element-ui": "^2.13.2",
+    "vue": "^2.6.11",
+    "vue-router": "^3.4.3",
+    "vuex": "^3.5.1"
+  },
+  "build": {
+    "productName": "ElectronCrawler",
+    "appId": "org.songqy.ElectronCrawler",
+    "files": [
+      "build/",
+      "node_modules/",
+      "index.html",
+      "main.js",
+      "package.json"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "msi"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "AppImage"
+      ],
+      "category": "Development"
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "electron-crawler",
+      "repo": "electron-crawler",
+      "private": false
+    }
+  }
+}
