@@ -31,6 +31,7 @@
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-typescript": "^7.10.4",
     "@babel/register": "^7.10.5",
+    "@types/cheerio": "^0.22.21",
     "@types/node": "^12",
     "@types/webpack": "^4.41.21",
     "@typescript-eslint/eslint-plugin": "^3.9.1",
@@ -62,7 +63,10 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "cheerio": "^1.0.0-rc.3",
+    "dotenv": "^8.2.0",
     "element-ui": "^2.13.2",
+    "moment": "^2.27.0",
     "vue": "^2.6.11",
     "vue-router": "^3.4.3",
     "vuex": "^3.5.1"

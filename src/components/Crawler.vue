@@ -2,26 +2,24 @@
   <div class="crawler">
     <el-button v-on:click="handleWrite">提交</el-button>
 
-    <div><router-link to="/">home</router-link></div>
+    <!-- <div><router-link to="/">home</router-link></div> -->
   </div>
 </template>
 
 <script>
 
-import {write} from '../modal/file';
-import path from 'path'
+import {crawlerMain} from '../service/crawler'
 
 export default {
   name: 'Crawler',
 
   mounted: function () {
-     
+    console.log('baseUrl1',process.env.baseUrl1)
   },
 
   methods: {
     handleWrite: function() {
-      console.log('__dirname',__dirname);
-      write(path.join(__dirname,'../file_assest/123.json'),'123');
+      crawlerMain(process.env.baseUrl1)
     }
   },
 

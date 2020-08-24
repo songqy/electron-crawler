@@ -8,3 +8,5 @@
 /file_assest
 
 package-lock.json
+
+.env

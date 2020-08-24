@@ -8,6 +8,10 @@ import App from './App';
 import router from './router';
 // import store from './store'
 
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 Vue.config.productionTip = false;
 
 Vue.use(Button);
