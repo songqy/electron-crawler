@@ -4,7 +4,6 @@ import utils from '@/common/utils';
 
 export default {
   async httpGetHtml(url: string, _config?: AxiosRequestConfig, cnt = 1): Promise<any> {
-    console.log('httpGetHtml', url);
     let res;
     const startTime = (new Date()).getTime();
     try {

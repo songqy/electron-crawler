@@ -4,10 +4,10 @@ import { writeFile } from '@/modal/file';
 
 
 const saveSinglePic = async(i: number, imgUrl: string, file: string, originUrl?: string): Promise<void> => {
-  const img = await httpRequest.httpGetImg(imgUrl, originUrl);
+  const img: ArrayBuffer = await httpRequest.httpGetImg(imgUrl, originUrl);
   if (img) {
     const imgFile = `${file}/img${(i + 1)}.jpg`;
-    writeFile(imgFile, img);
+    writeFile(imgFile, Buffer.from(img));
   }
 };
 

@@ -8,7 +8,7 @@ const _readdir = util.promisify(fs.readdir);
 const _mkdir = util.promisify(fs.mkdir);
 
 
-export const writeFile = async(path:string, str: string, option?: WriteFileOptions):Promise<void> => {
+export const writeFile = async(path:string, str: string | Buffer, option?: WriteFileOptions):Promise<void> => {
   try {
     await _writeFile(path, str, option);
     console.log(path + ',The file has been saved!');

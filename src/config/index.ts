@@ -7,6 +7,12 @@ export default {
   pageTimeout: 5000,
   imageTimeout: 5000,
 
+  //   crawlerS1: !!process.env.crawlerS1,
+  //   crawlerS2: !!process.env.crawlerS1,
+
+  crawlerS1: false,
+  crawlerS2: true,
+
   // 可以跳过的数量
   skipNum: 15,
 

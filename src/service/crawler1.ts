@@ -116,6 +116,9 @@ const startCrawler = async(start: number, baseFile: string, baseUrl: string): Pr
 
 
 export const crawler1 = async(start1: number, baseFile: string, baseUrl: string): Promise<number> => {
+  if (!config.crawlerS1) {
+    return start1;
+  }
   const newStart = await startCrawler(start1, baseFile, baseUrl);
 
   return newStart;

@@ -15,11 +15,12 @@ export default {
 
   mounted: function () {
     console.log('baseUrl1',process.env.baseUrl1)
+    console.log('baseUrl2',process.env.baseUrl2)
   },
 
   methods: {
     handleWrite: function() {
-      crawlerMain(process.env.baseUrl1)
+      crawlerMain(process.env.baseUrl1, process.env.baseUrl2)
     }
   },
 

@@ -1,4 +1,5 @@
 import { crawler1 } from '@/service/crawler1';
+import { crawler2 } from '@/service/crawler2';
 import { setStartEnd, getStartEnd } from '@/service/startEnd';
 import moment from 'moment';
 import config from '@/config';
@@ -13,15 +14,15 @@ const getBaseFile = async(): Promise<string> => {
   return baseFile;
 };
 
-const crawlerAll = async(baseFile: string, baseUrl1: string): Promise<void> => {
+const crawlerAll = async(baseFile: string, baseUrl1: string, baseUrl2: string): Promise<void> => {
   let { start1, end2 } = await getStartEnd();
 
   console.log('start1:', start1);
   console.log('end2:', end2);
 
-  const [start1_, end2_ = 9034] = await Promise.all([
+  const [start1_, end2_] = await Promise.all([
     crawler1(start1, baseFile, baseUrl1),
-    // this.crawlerService2.crawler(end2, baseFile),
+    crawler2(end2, baseFile, baseUrl2),
   ]);
 
   start1 = Math.max(start1_, start1);
@@ -30,7 +31,7 @@ const crawlerAll = async(baseFile: string, baseUrl1: string): Promise<void> => {
   setStartEnd(start1, end2);
 };
 
-export const crawlerMain = async(baseUrl1: string): Promise<void> => {
+export const crawlerMain = async(baseUrl1: string, baseUrl2: string): Promise<void> => {
 //   const { s1, s2, zip } = options;
   const baseFile = await getBaseFile();
 
@@ -47,6 +48,6 @@ export const crawlerMain = async(baseUrl1: string): Promise<void> => {
   //     await this.crawlerAll(baseFile, zip);
   //   }
 
-  await crawlerAll(baseFile, baseUrl1);
+  await crawlerAll(baseFile, baseUrl1, baseUrl2);
 };
 
