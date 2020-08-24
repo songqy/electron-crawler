@@ -20,7 +20,7 @@ export default {
 
   methods: {
     handleWrite: function() {
-      crawlerMain(process.env.baseUrl1, process.env.baseUrl2)
+      crawlerMain()
     }
   },
 

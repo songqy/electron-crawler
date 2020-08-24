@@ -14,15 +14,15 @@ const getBaseFile = async(): Promise<string> => {
   return baseFile;
 };
 
-const crawlerAll = async(baseFile: string, baseUrl1: string, baseUrl2: string): Promise<void> => {
+const crawlerAll = async(baseFile: string): Promise<void> => {
   let { start1, end2 } = await getStartEnd();
 
   console.log('start1:', start1);
   console.log('end2:', end2);
 
   const [start1_, end2_] = await Promise.all([
-    crawler1(start1, baseFile, baseUrl1),
-    crawler2(end2, baseFile, baseUrl2),
+    crawler1(start1, baseFile),
+    crawler2(end2, baseFile),
   ]);
 
   start1 = Math.max(start1_, start1);
@@ -31,7 +31,7 @@ const crawlerAll = async(baseFile: string, baseUrl1: string, baseUrl2: string): 
   setStartEnd(start1, end2);
 };
 
-export const crawlerMain = async(baseUrl1: string, baseUrl2: string): Promise<void> => {
+export const crawlerMain = async(baseUrl1: string): Promise<void> => {
 //   const { s1, s2, zip } = options;
   const baseFile = await getBaseFile();
 
@@ -48,6 +48,6 @@ export const crawlerMain = async(baseUrl1: string, baseUrl2: string): Promise<vo
   //     await this.crawlerAll(baseFile, zip);
   //   }
 
-  await crawlerAll(baseFile, baseUrl1, baseUrl2);
+  await crawlerAll(baseFile);
 };
 

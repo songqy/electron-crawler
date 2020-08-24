@@ -6,6 +6,8 @@ import httpRequest from '@/modal/httpRequest';
 import { mkdir, writeFile } from '@/modal/file';
 import { savePicList } from '@/service/savePic';
 
+const baseUrl = config.baseUrl2;
+
 const saveInfo = async ($: CheerioStatic, file: string): Promise<void> => {
   // 获取title
   const title = $('.article-title').html();
@@ -27,7 +29,7 @@ const getImgSrcList = ($: CheerioStatic, imgList: Cheerio, imgSrcList: string[])
   }
 };
 
-const nextPage = async(href: string, startIndex: number, file: string, imgSrcList: string[], baseUrl: string, cnt = 2) => {
+const nextPage = async(href: string, startIndex: number, file: string, imgSrcList: string[], cnt = 2) => {
   const nextUrl = baseUrl + href + startIndex + '_' + cnt + '.html';
   console.log(nextUrl);
 
@@ -52,10 +54,10 @@ const nextPage = async(href: string, startIndex: number, file: string, imgSrcLis
 
   await utils.sleep(config.pageInterval);
 
-  await nextPage(href, startIndex, file, imgSrcList, baseUrl, cnt + 1);
+  await nextPage(href, startIndex, file, imgSrcList, cnt + 1);
 };
 
-const startPage = async(href: string, startIndex: number, baseFile: string, baseUrl: string): Promise<void> => {
+const startPage = async(href: string, startIndex: number, baseFile: string): Promise<void> => {
   const url = `${baseUrl}${href}${startIndex}.html`;
   let html = await httpRequest.httpGetHtml(url);
   if (!html) {
@@ -85,14 +87,14 @@ const startPage = async(href: string, startIndex: number, baseFile: string, base
   getImgSrcList($, $imgList, imgSrcList);
 
 
-  await nextPage(href, startIndex, file, imgSrcList, baseUrl);
+  await nextPage(href, startIndex, file, imgSrcList);
 
   // console.log(imgSrcList);
 
   await savePicList(imgSrcList, file, baseUrl);
 };
 
-const  nextIndexPage = async(file: string, end: number, baseUrl: string, cnt = 2, search = 0)  => {
+const  nextIndexPage = async(file: string, end: number, cnt = 2, search = 0)  => {
   const url = baseUrl + '/page/' + cnt + '.html';
   let html = await httpRequest.httpGetHtml(url);
   html = iconv.decode(Buffer.from(html), 'gb2312');
@@ -133,16 +135,16 @@ const  nextIndexPage = async(file: string, end: number, baseUrl: string, cnt = 2
       }
     }
 
-    await startPage(href, index, file, baseUrl);
+    await startPage(href, index, file);
 
     await utils.sleep(config.pageInterval);
   }
 
-  await nextIndexPage(file, end, baseUrl, cnt + 1, search);
+  await nextIndexPage(file, end, cnt + 1, search);
 
 };
 
-const getPageUrl = async(file: string, end: number, baseUrl: string, search = 0):Promise<number> => {
+const getPageUrl = async(file: string, end: number, search = 0):Promise<number> => {
   const url = baseUrl;
   let html = await httpRequest.httpGetHtml(url);
   html = iconv.decode(Buffer.from(html), 'gb2312');
@@ -185,21 +187,21 @@ const getPageUrl = async(file: string, end: number, baseUrl: string, search = 0)
       }
     }
 
-    await startPage(href, index, file, baseUrl);
+    await startPage(href, index, file);
 
     await utils.sleep(config.pageInterval);
   }
 
-  await nextIndexPage(file, end, baseUrl, 2, search);
+  await nextIndexPage(file, end, 2, search);
 
   return newEnd;
 };
 
-export const crawler2 = async(end2: number, baseFile: string, baseUrl: string,):Promise<number> => {
+export const crawler2 = async(end2: number, baseFile: string,):Promise<number> => {
   if (!config.crawlerS2) {
     return end2;
   }
-  const newEnd = await getPageUrl(baseFile, end2, baseUrl);
+  const newEnd = await getPageUrl(baseFile, end2);
 
   return newEnd;
 };

@@ -5,7 +5,7 @@ import httpRequest from '@/modal/httpRequest';
 import { mkdir, writeFile } from '@/modal/file';
 import { savePicList } from '@/service/savePic';
 
-// const baseUrl = config.baseUrl1;
+const baseUrl = config.baseUrl1;
 
 // 保存简介
 const saveInfo = async($: CheerioStatic, file: string): Promise<void> => {
@@ -34,7 +34,7 @@ const parseHtml = (_baseUrl: string, $: CheerioStatic) => {
 };
 
 //下个页面
-const nextPage = async(nextUrl: string, baseUrl: string): Promise<string[]> => {
+const nextPage = async(nextUrl: string): Promise<string[]> => {
   if (nextUrl.indexOf('html') < 0) {
     return [];
   }
@@ -50,12 +50,12 @@ const nextPage = async(nextUrl: string, baseUrl: string): Promise<string[]> => {
 
   await utils.sleep(config.pageInterval);
 
-  const newImgSrcList = await nextPage(newNextUrl, baseUrl);
+  const newImgSrcList = await nextPage(newNextUrl);
   imgSrcList.push(...newImgSrcList);
   return imgSrcList;
 };
 
-const startPage = async(startIndex: number, baseFile: string, baseUrl: string) => {
+const startPage = async(startIndex: number, baseFile: string) => {
   const url = `${baseUrl}/g/${startIndex}/`;
   const html = await httpRequest.httpGetHtml(url);
   if (!html) {
@@ -85,7 +85,7 @@ const startPage = async(startIndex: number, baseFile: string, baseUrl: string) =
 
   const { nextUrl, imgSrcList } = parseHtml(baseUrl, $);
 
-  const newImgSrcList = await nextPage(nextUrl, baseUrl);
+  const newImgSrcList = await nextPage(nextUrl);
   imgSrcList.push(...newImgSrcList);
 
   //console.log(imgSrcList);
@@ -95,11 +95,11 @@ const startPage = async(startIndex: number, baseFile: string, baseUrl: string) =
   return true;
 };
 
-const startCrawler = async(start: number, baseFile: string, baseUrl: string): Promise<number> => {
+const startCrawler = async(start: number, baseFile: string): Promise<number> => {
   let newStart = start;
   let skipCount = 0;
   for (let i = start; i < start + 100; ++i) {
-    const flag = await startPage(i, baseFile, baseUrl);
+    const flag = await startPage(i, baseFile);
     if (flag) {
       newStart = i + 1;
       await utils.sleep(config.pageInterval);
@@ -115,11 +115,11 @@ const startCrawler = async(start: number, baseFile: string, baseUrl: string): Pr
 
 
 
-export const crawler1 = async(start1: number, baseFile: string, baseUrl: string): Promise<number> => {
+export const crawler1 = async(start1: number, baseFile: string): Promise<number> => {
   if (!config.crawlerS1) {
     return start1;
   }
-  const newStart = await startCrawler(start1, baseFile, baseUrl);
+  const newStart = await startCrawler(start1, baseFile);
 
   return newStart;
 };
