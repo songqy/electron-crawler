@@ -1,10 +1,10 @@
-import config from '@/config';
-import utils from '@/common/utils';
+import config from '../config';
+import utils from '../common/utils';
 import cheerio from 'cheerio';
 import iconv from 'iconv-lite';
-import httpRequest from '@/modal/httpRequest';
-import { mkdir, writeFile } from '@/modal/file';
-import { savePicList } from '@/service/savePic';
+import httpRequest from '../modal/httpRequest';
+import { mkdir, writeFile } from '../modal/file';
+import { savePicList } from '../service/savePic';
 
 const baseUrl = config.baseUrl2;
 
@@ -38,7 +38,7 @@ const nextPage = async(href: string, startIndex: number, file: string, imgSrcLis
     //停止操作
     return;
   }
-  html = iconv.decode(Buffer.from(html), 'gb2312');
+  html = iconv.decode(html, 'gb2312');
   //解决中文乱码问题
   const $ = cheerio.load(html, { decodeEntities: false });
 
@@ -64,7 +64,7 @@ const startPage = async(href: string, startIndex: number, baseFile: string): Pro
     //停止操作
     return;
   }
-  html = iconv.decode(Buffer.from(html), 'gb2312');
+  html = iconv.decode(html, 'gb2312');
   //解决中文乱码问题
   const $ = cheerio.load(html, { decodeEntities: false });
   console.log(startIndex);
@@ -97,7 +97,7 @@ const startPage = async(href: string, startIndex: number, baseFile: string): Pro
 const  nextIndexPage = async(file: string, end: number, cnt = 2, search = 0)  => {
   const url = baseUrl + '/page/' + cnt + '.html';
   let html = await httpRequest.httpGetHtml(url);
-  html = iconv.decode(Buffer.from(html), 'gb2312');
+  html = iconv.decode(html, 'gb2312');
   //解决中文乱码问题
   const $ = cheerio.load(html, { decodeEntities: false });
 
@@ -147,7 +147,7 @@ const  nextIndexPage = async(file: string, end: number, cnt = 2, search = 0)  =>
 const getPageUrl = async(file: string, end: number, search = 0):Promise<number> => {
   const url = baseUrl;
   let html = await httpRequest.httpGetHtml(url);
-  html = iconv.decode(Buffer.from(html), 'gb2312');
+  html = iconv.decode(html, 'gb2312');
   //解决中文乱码问题
   const $ = cheerio.load(html, { decodeEntities: false });
 

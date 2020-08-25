@@ -1,6 +1,6 @@
-import config from '@/config';
+import config from '../config';
 import axios, { AxiosRequestConfig } from 'axios';
-import utils from '@/common/utils';
+import utils from '../common/utils';
 
 export default {
   async httpGetHtml(url: string, _config?: AxiosRequestConfig, cnt = 1): Promise<any> {
@@ -28,6 +28,9 @@ export default {
 
   async httpGetSingle(url: string, config?: AxiosRequestConfig): Promise<any> {
     const res = await axios.get(url, config);
+    // if (config && config.responseType === 'arraybuffer') {
+    //   return Buffer.from(res.data);
+    // }
     return res.data;
   },
 

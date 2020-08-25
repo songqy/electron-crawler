@@ -1,9 +1,9 @@
-import { crawler1 } from '@/service/crawler1';
-import { crawler2 } from '@/service/crawler2';
-import { setStartEnd, getStartEnd } from '@/service/startEnd';
+import { crawler1 } from './crawler1';
+import { crawler2 } from './crawler2';
+import { setStartEnd, getStartEnd } from './startEnd';
 import moment from 'moment';
-import config from '@/config';
-import { mkdir } from '@/modal/file';
+import config from '../config';
+import { mkdir } from '../modal/file';
 
 
 
@@ -31,7 +31,7 @@ const crawlerAll = async(baseFile: string): Promise<void> => {
   setStartEnd(start1, end2);
 };
 
-export const crawlerMain = async(baseUrl1: string): Promise<void> => {
+export const crawlerMain = async(): Promise<void> => {
 //   const { s1, s2, zip } = options;
   const baseFile = await getBaseFile();
 

@@ -1,7 +1,7 @@
-import config from '@/config';
-import { readFile } from '@/modal/file';
-import { StartEndOptions } from '@/interface';
-import { writeFile } from '@/modal/file';
+import config from '../config';
+import { readFile } from '../modal/file';
+import { StartEndOptions } from '../interface';
+import { writeFile } from '../modal/file';
 
 
 export const getStartEnd = async(): Promise<StartEndOptions> => {

@@ -1,9 +1,9 @@
-import config from '@/config';
-import utils from '@/common/utils';
+import config from '../config';
+import utils from '../common/utils';
 import cheerio from 'cheerio';
-import httpRequest from '@/modal/httpRequest';
-import { mkdir, writeFile } from '@/modal/file';
-import { savePicList } from '@/service/savePic';
+import httpRequest from '../modal/httpRequest';
+import { mkdir, writeFile } from '../modal/file';
+import { savePicList } from '../service/savePic';
 
 const baseUrl = config.baseUrl1;
 
@@ -98,7 +98,7 @@ const startPage = async(startIndex: number, baseFile: string) => {
 const startCrawler = async(start: number, baseFile: string): Promise<number> => {
   let newStart = start;
   let skipCount = 0;
-  for (let i = start; i < start + 100; ++i) {
+  for (let i = start; i < start + 1; ++i) {
     const flag = await startPage(i, baseFile);
     if (flag) {
       newStart = i + 1;
