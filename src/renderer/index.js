@@ -9,7 +9,7 @@ import {
 import App from './App';
 import router from './router';
 import ipc from './ipc';
-// import store from './store'
+import store from './store';
 
 ipc.register();
 
@@ -21,7 +21,7 @@ Vue.use(Button);
 new Vue({
   el: '#app',
   router,
-  //   store,
+  store,
   components: { App },
   // template: '<App/>',
   render: h => h(App),

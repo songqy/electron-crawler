@@ -1,0 +1,2 @@
+
+export const PUSH_MESSAGES = 'PUSH_MESSAGES';
