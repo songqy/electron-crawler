@@ -2,6 +2,7 @@
 import 'dotenv/config';
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { crawlerMain } from './service/crawler';
+import path from 'path';
 
 // const installExtensions = async () => {
 //   const installer = require('electron-devtools-installer');
@@ -27,7 +28,7 @@ function createWindow () {
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile('app.html');
+  mainWindow.loadFile(path.join(__dirname, '../app.html'));
 
   if (process.env.NODE_ENV === 'development') {
     // Open the DevTools.

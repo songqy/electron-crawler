@@ -17,7 +17,7 @@ const publicPath = `http://localhost:${port}/dist`;
 module.exports = merge(baseConfig, {
   mode: 'development',
   devtool: 'inline-source-map',
-  entry: [path.resolve(srcPath, 'index.js')],
+  entry: [path.resolve(srcPath, './renderer/index.js')],
   output: {
     // path: path.resolve(rootPath, 'dist'),
     publicPath: `http://localhost:${port}/dist/`,

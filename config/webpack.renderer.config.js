@@ -11,7 +11,7 @@ const srcPath = path.resolve(rootPath, 'src');
 module.exports = merge(baseConfig, {
   mode: 'production',
   devtool: 'inline-source-map',
-  entry: [path.resolve(srcPath, 'index.js')],
+  entry: [path.resolve(srcPath, './renderer/index.js')],
   output: {
     path: path.resolve(rootPath, 'build'),
     filename: 'renderer.js',

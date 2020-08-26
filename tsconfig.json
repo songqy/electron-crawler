@@ -23,9 +23,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@c/*": ["src/components/*"],
-      "@r/*": ["src/routes/*"],
-      "@u/*": ["src/utils/*"]
+      "@c/*": ["src/renderer/components/*"],
+      "@r/*": ["src/renderer/routes/*"],
+      "@u/*": ["src/renderer/utils/*"]
     }
   },
   "exclude": [

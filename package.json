@@ -7,7 +7,7 @@
     "start": "npx webpack-dev-server --config ./config/webpack.renderer.dev.config.js",
     "start-main": "electron ./build/main.js",
     "start-old": "electron .",
-    "start-main-dev": "cross-env NODE_ENV=development electron -r ./scripts/BabelRegister.js ./src/main.ts",
+    "start-main-dev": "cross-env NODE_ENV=development electron -r ./scripts/BabelRegister.js ./src/main/main.ts",
     "build": "concurrently \"npm run build-main\" \"npm run build-renderer\"",
     "build-main": "npx webpack --config ./config/webpack.main.config.js",
     "build-renderer": "npx webpack --config ./config/webpack.renderer.config.js",
