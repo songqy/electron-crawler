@@ -2,6 +2,7 @@ import config from '../config';
 import { readFile } from '../modal/file';
 import { StartEndOptions } from '../interface';
 import { writeFile } from '../modal/file';
+import logger from '../common/logger';
 
 
 export const getStartEnd = async(): Promise<StartEndOptions> => {
@@ -17,7 +18,7 @@ export const setStartEnd = async(start1: number, end2: number): Promise<void> =>
     end2,
   };
   const str = JSON.stringify(s);
-  console.log('set str:' + str);
+  logger.log('set str:' + str);
 
   await writeFile(config.fileDir + '/start_end.txt', str);
 };

@@ -1,6 +1,7 @@
 import config from '../config';
 import axios, { AxiosRequestConfig } from 'axios';
 import utils from '../common/utils';
+import logger from '../common/logger';
 
 export default {
   async httpGetHtml(url: string, _config?: AxiosRequestConfig, cnt = 1): Promise<any> {
@@ -14,7 +15,7 @@ export default {
       });
     } catch (e) {
       const endTime = (new Date()).getTime();
-      console.error(`请求失败${cnt}次,time:${endTime - startTime}ms,url:${url},err:`, e);
+      logger.error(`请求失败${cnt}次,time:${endTime - startTime}ms,url:${url},err:`, e);
       await utils.sleep(1000);
 
       if (cnt < 5) {
@@ -46,7 +47,7 @@ export default {
       });
     } catch (e) {
       const endTime = (new Date()).getTime();
-      console.error(`请求失败${cnt}次,time:${endTime - startTime}ms,url:${url},err:`, e);
+      logger.error(`请求失败${cnt}次,time:${endTime - startTime}ms,url:${url},err:`, e);
       await utils.sleep(1000);
 
       // 请求失败后会再发送请求,最多请求8次

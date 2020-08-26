@@ -1,8 +1,8 @@
 // Modules to control application life and create native browser window
 import 'dotenv/config';
-import { app, BrowserWindow, ipcMain } from 'electron';
-import { crawlerMain } from './service/crawler';
+import { app, BrowserWindow } from 'electron';
 import path from 'path';
+import ipc from './ipc';
 
 // const installExtensions = async () => {
 //   const installer = require('electron-devtools-installer');
@@ -35,6 +35,8 @@ function createWindow () {
     mainWindow.webContents.openDevTools();
   }
 
+  ipc.setContent(mainWindow.webContents);
+
 }
 
 // This method will be called when Electron has finished
@@ -57,12 +59,7 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
 
-
-ipcMain.on('crawlerMain', (event, arg) => {
-  console.log('crawlerMain', arg);
-  crawlerMain();
-  event.reply('crawlerMain', 'pong');
-});
+ipc.register();
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

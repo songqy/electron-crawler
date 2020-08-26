@@ -8,7 +8,10 @@ import {
 } from 'element-ui';
 import App from './App';
 import router from './router';
+import ipc from './ipc';
 // import store from './store'
+
+ipc.register();
 
 Vue.config.productionTip = false;
 

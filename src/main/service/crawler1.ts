@@ -4,6 +4,7 @@ import cheerio from 'cheerio';
 import httpRequest from '../modal/httpRequest';
 import { mkdir, writeFile } from '../modal/file';
 import { savePicList } from '../service/savePic';
+import logger from '../common/logger';
 
 const baseUrl = config.baseUrl1;
 
@@ -23,7 +24,7 @@ const saveInfo = async($: CheerioStatic, file: string): Promise<void> => {
 const parseHtml = (_baseUrl: string, $: CheerioStatic) => {
   const imgSrcList: string[] = [];
   const nextUrl = `${_baseUrl}${$('.a1').eq(1).attr('href') || ''}`;
-  console.log(nextUrl);
+  logger.log(nextUrl);
 
   const $imgList = $('#hgallery').find('img');
   for (let i = 0, len = $imgList.length; i < len; ++i) {
@@ -72,7 +73,7 @@ const startPage = async(startIndex: number, baseFile: string) => {
     return false;
   }
 
-  console.log(startIndex);
+  logger.log(startIndex);
 
   const file = `${baseFile}${startIndex}`;
   await mkdir(file);
@@ -88,7 +89,7 @@ const startPage = async(startIndex: number, baseFile: string) => {
   const newImgSrcList = await nextPage(nextUrl);
   imgSrcList.push(...newImgSrcList);
 
-  //console.log(imgSrcList);
+  //logger.log(imgSrcList);
 
   await savePicList(imgSrcList, file, url);
 

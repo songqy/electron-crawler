@@ -1,5 +1,6 @@
 import fs, { WriteFileOptions, PathLike } from 'fs';
 import util from 'util';
+import logger from '../common/logger';
 
 const _access = util.promisify(fs.access);
 const _writeFile = util.promisify(fs.writeFile);
@@ -11,9 +12,9 @@ const _mkdir = util.promisify(fs.mkdir);
 export const writeFile = async(path:string, str: string | Buffer, option?: WriteFileOptions):Promise<void> => {
   try {
     await _writeFile(path, str, option);
-    console.log(path + ',The file has been saved!');
+    logger.log(path + ',The file has been saved!');
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   }
 };
 
@@ -32,7 +33,7 @@ export const existsFile = async(path: PathLike): Promise<boolean> => {
 export const mkdir = async(path: string, options?: WriteFileOptions): Promise<void> => {
   const flag = await existsFile(path);
   if (!flag) {
-    await _mkdir(path, options).catch(e => console.error(e));
+    await _mkdir(path, options).catch(e => logger.error(e));
   }
 };
 
@@ -41,7 +42,7 @@ export const getFiles = async(path: string): Promise<string[]> => {
     const files = await _readdir(path);
     return files;
   } catch (e) {
-    console.error(e);
+    logger.error(e);
     return [];
   }
 };

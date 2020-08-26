@@ -8,8 +8,7 @@
 
 <script>
 
-// import {crawlerMain} from '../service/crawler'
-import {ipcRenderer} from 'electron'
+import ipc from '../ipc'
 
 export default {
   name: 'Crawler',
@@ -21,8 +20,7 @@ export default {
 
   methods: {
     handleWrite: function() {
-      // crawlerMain()
-      ipcRenderer.send('crawlerMain')
+      ipc.crawlerMain()
     }
   },
 

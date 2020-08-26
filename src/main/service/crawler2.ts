@@ -5,6 +5,7 @@ import iconv from 'iconv-lite';
 import httpRequest from '../modal/httpRequest';
 import { mkdir, writeFile } from '../modal/file';
 import { savePicList } from '../service/savePic';
+import logger from '../common/logger';
 
 const baseUrl = config.baseUrl2;
 
@@ -31,7 +32,7 @@ const getImgSrcList = ($: CheerioStatic, imgList: Cheerio, imgSrcList: string[])
 
 const nextPage = async(href: string, startIndex: number, file: string, imgSrcList: string[], cnt = 2) => {
   const nextUrl = baseUrl + href + startIndex + '_' + cnt + '.html';
-  console.log(nextUrl);
+  logger.log(nextUrl);
 
   let html = await httpRequest.httpGetHtml(nextUrl);
   if (!html) {
@@ -67,7 +68,7 @@ const startPage = async(href: string, startIndex: number, baseFile: string): Pro
   html = iconv.decode(html, 'gb2312');
   //解决中文乱码问题
   const $ = cheerio.load(html, { decodeEntities: false });
-  console.log(startIndex);
+  logger.log(startIndex);
 
   const file = baseFile + startIndex;
   await mkdir(file);
@@ -89,7 +90,7 @@ const startPage = async(href: string, startIndex: number, baseFile: string): Pro
 
   await nextPage(href, startIndex, file, imgSrcList);
 
-  // console.log(imgSrcList);
+  // logger.log(imgSrcList);
 
   await savePicList(imgSrcList, file, baseUrl);
 };
@@ -120,11 +121,11 @@ const  nextIndexPage = async(file: string, end: number, cnt = 2, search = 0)  =>
     const r2 = reg2.exec(urlItem);
     const index = Number(r1[0].substr(1, 4));
     const href = r2[0];
-    console.log(index);
+    logger.log(index);
 
     if (search > 0) {
       if (index > search) {
-        console.log(index + ' pass');
+        logger.log(index + ' pass');
         continue;
       } else if (index < search) {
         return;
@@ -170,13 +171,13 @@ const getPageUrl = async(file: string, end: number, search = 0):Promise<number> 
     const r2 = reg2.exec(urlItem);
     const index = Number(r1[0].substr(1, 4));
     const href = r2[0];
-    console.log(index);
+    logger.log(index);
     if (newEnd === 0) {
       newEnd = index;
     }
     if (search > 0) {
       if (index > search) {
-        console.log(`${index} pass`);
+        logger.log(`${index} pass`);
         continue;
       } else if (index < search) {
         return newEnd;
