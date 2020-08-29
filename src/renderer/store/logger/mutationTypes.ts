@@ -1,2 +1,3 @@
 
 export const PUSH_MESSAGES = 'PUSH_MESSAGES';
+export const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
