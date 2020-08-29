@@ -1,6 +1,6 @@
 <template>
   <div class="crawler">
-    <el-button v-on:click="handleWrite">提交</el-button>
+    <el-button v-on:click="handleWrite">开始</el-button>
     <div id="logger">
       <div v-for="loggerMessage in loggerMessages" :key=loggerMessage.index>
         {{loggerMessage.message}}

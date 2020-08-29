@@ -3,6 +3,7 @@
  */
 
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 const { dependencies: externals } = require('../package.json');
 
 function resolve (dir) {
@@ -45,4 +46,8 @@ module.exports = {
       '@c': resolve('src/renderer/components'),
     },
   },
+
+  plugins: [
+    new Dotenv(),
+  ],
 };

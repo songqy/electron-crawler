@@ -2,7 +2,7 @@
   "name": "electron-crawler",
   "version": "1.0.0",
   "description": "A minimal Electron application",
-  "main": "main.js",
+  "main": "build/main.js",
   "scripts": {
     "start": "npx webpack-dev-server --config ./config/webpack.renderer.dev.config.js",
     "start-main": "electron ./build/main.js",
@@ -43,6 +43,7 @@
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
     "css-loader": "^4.2.1",
+    "dotenv-webpack": "^2.0.0",
     "electron": "^9.2.0",
     "electron-builder": "^22.8.0",
     "electron-devtools-installer": "^3.1.1",
@@ -78,8 +79,8 @@
     "files": [
       "build/",
       "node_modules/",
-      "index.html",
-      "main.js",
+      "build/app.html",
+      "build/main.js",
       "package.json"
     ],
     "dmg": {
@@ -100,7 +101,8 @@
       "target": [
         "nsis",
         "msi"
-      ]
+      ],
+      "icon": "resources/icon.png"
     },
     "linux": {
       "target": [

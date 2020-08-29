@@ -99,7 +99,7 @@ const startPage = async(startIndex: number, baseFile: string) => {
 const startCrawler = async(start: number, baseFile: string): Promise<number> => {
   let newStart = start;
   let skipCount = 0;
-  for (let i = start; i < start + 1; ++i) {
+  for (let i = start; i < start + 100; ++i) {
     const flag = await startPage(i, baseFile);
     if (flag) {
       newStart = i + 1;
