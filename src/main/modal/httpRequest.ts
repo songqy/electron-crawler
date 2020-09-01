@@ -1,5 +1,6 @@
 import config from '../config';
 import axios, { AxiosRequestConfig } from 'axios';
+import https from 'https';
 import utils from '../common/utils';
 import logger from '../common/logger';
 
@@ -29,9 +30,6 @@ export default {
 
   async httpGetSingle(url: string, config?: AxiosRequestConfig): Promise<any> {
     const res = await axios.get(url, config);
-    // if (config && config.responseType === 'arraybuffer') {
-    //   return Buffer.from(res.data);
-    // }
     return res.data;
   },
 
@@ -43,6 +41,7 @@ export default {
         timeout: config.imageTimeout,
         headers: { 'Referer': originUrl },
         responseType: 'arraybuffer',
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
         ..._config,
       });
     } catch (e) {
