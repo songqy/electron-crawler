@@ -1,4 +1,4 @@
-import ipc from '../ipc';
+import ipc from '@/main/ipc';
 
 type loggerOptions = string | number;
 

@@ -1,5 +1,5 @@
 import { ipcMain, WebContents } from 'electron';
-import { crawlerMain } from '../service/crawler';
+import { crawlerMain } from '@/main/service/crawler';
 
 let contents: WebContents;
 

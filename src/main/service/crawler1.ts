@@ -1,10 +1,10 @@
-import config from '../config';
-import utils from '../common/utils';
+import config from '@/main/config';
+import utils from '@/main/common/utils';
 import cheerio from 'cheerio';
-import httpRequest from '../modal/httpRequest';
-import { mkdir, writeFile } from '../modal/file';
-import { savePicList } from '../service/savePic';
-import logger from '../common/logger';
+import httpRequest from '@/main/modal/httpRequest';
+import { mkdir, writeFile } from '@/main/modal/file';
+import { savePicList } from '@/main/service/savePic';
+import logger from '@/main/common/logger';
 
 const baseUrl = config.baseUrl1;
 

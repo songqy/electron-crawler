@@ -1,6 +1,6 @@
 import fs, { WriteFileOptions, PathLike } from 'fs';
 import util from 'util';
-import logger from '../common/logger';
+import logger from '@/main/common/logger';
 
 const _access = util.promisify(fs.access);
 const _writeFile = util.promisify(fs.writeFile);

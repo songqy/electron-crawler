@@ -1,6 +1,6 @@
 
-import httpRequest from '../modal/httpRequest';
-import { writeFile } from '../modal/file';
+import httpRequest from '@/main/modal/httpRequest';
+import { writeFile } from '@/main/modal/file';
 
 
 const saveSinglePic = async(i: number, imgUrl: string, file: string, originUrl?: string): Promise<void> => {

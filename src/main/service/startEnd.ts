@@ -1,8 +1,8 @@
-import config from '../config';
-import { readFile } from '../modal/file';
-import { StartEndOptions } from '../interface';
-import { writeFile } from '../modal/file';
-import logger from '../common/logger';
+import config from '@/main/config';
+import { readFile } from '@/main/modal/file';
+import { StartEndOptions } from '@/main/interface';
+import { writeFile } from '@/main/modal/file';
+import logger from '@/main/common/logger';
 
 
 export const getStartEnd = async(): Promise<StartEndOptions> => {

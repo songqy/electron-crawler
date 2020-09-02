@@ -6,37 +6,17 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
     <!-- <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
     <title>Hello World!</title>
-    <script>
-      if (typeof process === 'object' && process.env.NODE_ENV === 'development') {
-        const link = document.createElement('link');
-        const port = process.env.PORT || 3341;
-        link.rel = 'stylesheet';
-        link.href = `http://localhost:${port}/dist/style.css`;
-        // HACK: Writing the script path should be done with webpack
-        document.getElementsByTagName('head')[0].appendChild(link);
-      }
-    </script>
+    <% if (process.env.NODE_ENV === 'development') { %>
+      <link rel="stylesheet" href="http://localhost:3341/dist/style.css"></link>
+    <% } %>
   </head>
   <body style="height: 100%; width: 100%;">
     <div id="app"></div>
-    <script>
-      if (typeof process === 'object') {
-        const scripts = [];
-        if (process.env.NODE_ENV === 'development') {
-          // Dynamically insert the DLL script in development env in the
-          // renderer process
-          const port = process.env.PORT || 3341;
-          scripts.push(`http://localhost:${port}/dist/renderer.dev.js`);
-        }
-        if (scripts.length) {
-          document.write(
-            scripts
-              .map(script => `<script defer src="${script}"><\/script>`)
-              .join('')
-          );
-        }
-      }
-    </script>
+
+    <% if (process.env.NODE_ENV === 'development') { %>
+      <script defer src="http://localhost:3341/dist/renderer.dev.js"></script>
+    <% } %>
+
 
     <!-- You can also require other files to run in this process -->
     <!-- <script src="./renderer.js"></script> -->

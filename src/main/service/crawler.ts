@@ -1,10 +1,10 @@
-import { crawler1 } from './crawler1';
-import { crawler2 } from './crawler2';
+import { crawler1 } from '@/main/service/crawler1';
+import { crawler2 } from '@/main/service/crawler2';
 import { setStartEnd, getStartEnd } from './startEnd';
 import moment from 'moment';
-import config from '../config';
-import { mkdir } from '../modal/file';
-import logger from '../common/logger';
+import config from '@/main/config';
+import { mkdir } from '@/main/modal/file';
+import logger from '@/main/common/logger';
 
 
 const getBaseFile = async(): Promise<string> => {

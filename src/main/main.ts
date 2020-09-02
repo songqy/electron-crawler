@@ -2,7 +2,7 @@
 import 'dotenv/config';
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
-import ipc from './ipc';
+import ipc from '@/main/ipc';
 
 // const installExtensions = async () => {
 //   const installer = require('electron-devtools-installer');

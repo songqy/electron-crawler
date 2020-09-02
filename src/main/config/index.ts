@@ -14,5 +14,5 @@ export default {
   // 可以跳过的数量
   skipNum: 15,
 
-  fileDir: process.env.fileDir || path.join(__dirname, '../../../file_assest'),
+  fileDir: process.env.fileDir || path.join(__dirname, '../file_assest'),
 };

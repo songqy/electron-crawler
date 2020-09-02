@@ -97,7 +97,7 @@ module.exports = merge(baseConfig, {
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: path.resolve(srcPath, 'app.html'),
+      template: path.resolve(srcPath, 'main/app.html'),
       inject: true,
     }),
     new VueLoaderPlugin(),

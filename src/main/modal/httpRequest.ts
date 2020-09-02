@@ -1,8 +1,8 @@
-import config from '../config';
+import config from '@/main/config';
 import axios, { AxiosRequestConfig } from 'axios';
 import https from 'https';
-import utils from '../common/utils';
-import logger from '../common/logger';
+import utils from '@/main/common/utils';
+import logger from '@/main/common/logger';
 
 export default {
   async httpGetHtml(url: string, _config?: AxiosRequestConfig, cnt = 1): Promise<any> {
