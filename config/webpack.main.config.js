@@ -12,7 +12,7 @@ const plugins = [new CleanWebpackPlugin()];
 if (process.env.NODE_ENV === 'development') {
   plugins.push(new HtmlWebpackPlugin({
     filename: 'app.html',
-    template: path.resolve(srcPath, 'main/app.html'),
+    template: path.resolve(srcPath, 'app.html'),
     inject: false,
   }));
 }

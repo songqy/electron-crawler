@@ -95,7 +95,7 @@ const startPage = async(href: string, startIndex: number, baseFile: string): Pro
   await savePicList(imgSrcList, file, baseUrl);
 };
 
-const  nextIndexPage = async(file: string, end: number, cnt = 2, search = 0)  => {
+const nextIndexPage = async(file: string, end: number, cnt = 2, search = 0)  => {
   const url = baseUrl + '/page/' + cnt + '.html';
   let html = await httpRequest.httpGetHtml(url);
   html = iconv.decode(html, 'gb2312');
@@ -113,12 +113,14 @@ const  nextIndexPage = async(file: string, end: number, cnt = 2, search = 0)  =>
 
   writeFile(file + '/page_url.json', JSON.stringify(urlList));
 
-
   const reg1 = new RegExp(/\/[0-9]{4}\./);
   const reg2 = new RegExp(/\/(.+)\/(.+)\/(.+)\//);
   for (const urlItem of urlList) {
     const r1 = reg1.exec(urlItem);
     const r2 = reg2.exec(urlItem);
+    if (!r1 || !r2) {
+      return;
+    }
     const index = Number(r1[0].substr(1, 4));
     const href = r2[0];
     logger.log(index);
@@ -169,6 +171,9 @@ const getPageUrl = async(file: string, end: number, search = 0):Promise<number> 
   for (const urlItem of urlList) {
     const r1 = reg1.exec(urlItem);
     const r2 = reg2.exec(urlItem);
+    if (!r1 || !r2) {
+      return end;
+    }
     const index = Number(r1[0].substr(1, 4));
     const href = r2[0];
     logger.log(index);

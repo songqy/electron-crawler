@@ -88,7 +88,7 @@ module.exports = merge(baseConfig, {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'app.html',
-      template: path.resolve(srcPath, 'main/app.html'),
+      template: path.resolve(srcPath, 'app.html'),
       inject: true,
     }),
     new VueLoaderPlugin(),
