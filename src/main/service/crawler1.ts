@@ -35,11 +35,11 @@ const parseHtml = (_baseUrl: string, $: CheerioStatic) => {
 };
 
 //下个页面
-const nextPage = async(nextUrl: string): Promise<string[]> => {
-  if (nextUrl.indexOf('html') < 0) {
+const nextPage = async(url: string): Promise<string[]> => {
+  if (url.indexOf('html') < 0) {
     return [];
   }
-  const html = await httpRequest.httpGetHtml(nextUrl);
+  const html = await httpRequest.httpGetHtml(url);
   if (!html) {
     //停止操作
     return [];
@@ -47,11 +47,11 @@ const nextPage = async(nextUrl: string): Promise<string[]> => {
   //解决中文乱码问题
   const $ = cheerio.load(html, { decodeEntities: false });
 
-  const { nextUrl: newNextUrl, imgSrcList } = parseHtml(baseUrl, $);
+  const { nextUrl, imgSrcList } = parseHtml(baseUrl, $);
 
   await utils.sleep(config.pageInterval);
 
-  const newImgSrcList = await nextPage(newNextUrl);
+  const newImgSrcList = await nextPage(nextUrl);
   imgSrcList.push(...newImgSrcList);
   return imgSrcList;
 };
