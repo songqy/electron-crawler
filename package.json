@@ -1,6 +1,6 @@
 {
   "name": "electron-crawler",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A minimal Electron application",
   "main": "build/main.js",
   "scripts": {
@@ -64,10 +64,10 @@
     "webpack-node-externals": "^2.5.0"
   },
   "dependencies": {
-    "axios": "^0.20.0",
     "cheerio": "^1.0.0-rc.3",
     "dotenv": "^8.2.0",
     "element-ui": "^2.13.2",
+    "got": "^11.6.0",
     "iconv-lite": "^0.5.1",
     "moment": "^2.27.0",
     "vue": "^2.6.11",

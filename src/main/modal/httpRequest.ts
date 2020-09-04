@@ -1,18 +1,22 @@
 import config from '@/main/config';
-import axios, { AxiosRequestConfig } from 'axios';
 import https from 'https';
 import utils from '@/main/common/utils';
 import logger from '@/main/common/logger';
+import got, { OptionsOfBufferResponseBody } from 'got';
+
+async function httpGetBuffer(url: string, options: OptionsOfBufferResponseBody): Promise<Buffer> {
+  const res = await got.get(url, options);
+  return res.body;
+}
 
 export default {
-  async httpGetHtml(url: string, _config?: AxiosRequestConfig, cnt = 1): Promise<any> {
-    let res;
+  async httpGetHtml(url: string, cnt = 1): Promise<Buffer | undefined> {
+    let res: Buffer | undefined;
     const startTime = (new Date()).getTime();
     try {
-      res = await this.httpGetSingle(url, {
+      res = await httpGetBuffer(url, {
         timeout: config.pageTimeout,
-        responseType: 'arraybuffer',
-        ..._config,
+        responseType: 'buffer',
       });
     } catch (e) {
       const endTime = (new Date()).getTime();
@@ -20,29 +24,23 @@ export default {
       await utils.sleep(1000);
 
       if (cnt < 5) {
-        res = await this.httpGetHtml(url, _config, cnt + 1);
-      } else {
-        res = null;
+        res = await this.httpGetHtml(url, cnt + 1);
       }
     }
     return res;
   },
 
-  async httpGetSingle(url: string, config?: AxiosRequestConfig): Promise<any> {
-    const res = await axios.get(url, config);
-    return res.data;
-  },
-
-  async httpGetImg(url: string, originUrl?: string, _config?: AxiosRequestConfig, cnt = 1): Promise<any>  {
-    let res;
+  async httpGetImg(url: string, originUrl?: string, cnt = 1): Promise<Buffer | undefined>  {
+    let res: Buffer | undefined;
     const startTime = (new Date()).getTime();
     try {
-      res = await this.httpGetSingle(url, {
+      res = await httpGetBuffer(url, {
         timeout: config.imageTimeout,
         headers: { 'Referer': originUrl },
-        responseType: 'arraybuffer',
-        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
-        ..._config,
+        responseType: 'buffer',
+        agent: {
+          https: new https.Agent({ rejectUnauthorized: false }),
+        },
       });
     } catch (e) {
       const endTime = (new Date()).getTime();
@@ -51,9 +49,7 @@ export default {
 
       // 请求失败后会再发送请求,最多请求8次
       if (cnt < 8) {
-        res = await this.httpGetImg(url, originUrl, _config, cnt + 1);
-      } else {
-        res = null;
+        res = await this.httpGetImg(url, originUrl, cnt + 1);
       }
     }
     return res;
