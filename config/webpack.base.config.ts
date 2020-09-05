@@ -2,15 +2,22 @@
  * Base webpack config used across other specific configs
  */
 
-const path = require('path');
-const Dotenv = require('dotenv-webpack');
-const { dependencies: externals } = require('../package.json');
+import path from 'path';
+import { Plugin, Configuration } from 'webpack';
+import Dotenv from 'dotenv-webpack';
+import pkg from '../package.json';
 
-function resolve (dir) {
+const { dependencies: externals } = pkg;
+
+function resolve (dir: string) {
   return path.join(__dirname, '..', dir);
 }
 
-module.exports = {
+const plugins: Plugin[] = [
+  new Dotenv(),
+];
+
+const baseConfig: Configuration =  {
   externals: [...Object.keys(externals || {})],
 
   module: {
@@ -47,7 +54,7 @@ module.exports = {
     },
   },
 
-  plugins: [
-    new Dotenv(),
-  ],
+  plugins,
 };
+
+export default baseConfig;

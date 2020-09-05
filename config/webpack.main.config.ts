@@ -1,15 +1,18 @@
-const path = require('path');
-const { merge } = require('webpack-merge');
-const baseConfig = require('./webpack.base.config');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import path from 'path';
+import { Plugin } from 'webpack';
+import { merge } from 'webpack-merge';
+import baseConfig from './webpack.base.config';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const rootPath = path.resolve(__dirname, '../');
 const srcPath = path.resolve(rootPath, 'src');
 
-const plugins = [new CleanWebpackPlugin()];
+const isDev = process.env.NODE_ENV === 'development';
 
-if (process.env.NODE_ENV === 'development') {
+const plugins: Plugin[] = [new CleanWebpackPlugin()];
+
+if (isDev) {
   plugins.push(new HtmlWebpackPlugin({
     filename: 'app.html',
     template: path.resolve(srcPath, 'app.html'),
@@ -17,8 +20,8 @@ if (process.env.NODE_ENV === 'development') {
   }));
 }
 
-module.exports = merge(baseConfig, {
-  mode: process.env.NODE_ENV || 'production',
+export default merge(baseConfig, {
+  mode: (isDev ? 'development' : '') || 'production',
   devtool: 'cheap-module-eval-source-map',
   entry: [path.resolve(srcPath, './main/main.ts')],
   output: {
