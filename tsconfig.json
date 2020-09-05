@@ -24,8 +24,7 @@
     "paths": {
       "@/*": ["src/*"],
       "@c/*": ["src/renderer/components/*"],
-      "@r/*": ["src/renderer/routes/*"],
-      "@u/*": ["src/renderer/utils/*"]
+      "@r/*": ["src/renderer/routes/*"]
     }
   },
   "exclude": [

@@ -21,7 +21,7 @@ if (isDev) {
 }
 
 export default merge(baseConfig, {
-  mode: (isDev ? 'development' : '') || 'production',
+  mode: isDev ? 'development' : 'production',
   devtool: 'cheap-module-eval-source-map',
   entry: [path.resolve(srcPath, './main/main.ts')],
   output: {

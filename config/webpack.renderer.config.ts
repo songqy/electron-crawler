@@ -72,7 +72,7 @@ if (isDev) {
 }
 
 export default merge(baseConfig, {
-  mode: (isDev ? 'development' : '') || 'production',
+  mode: isDev ? 'development' : 'production',
   devtool: 'inline-source-map',
   entry: [path.resolve(srcPath, './renderer/index.js')],
   output: {

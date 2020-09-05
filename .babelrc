@@ -13,11 +13,6 @@
                 "styleLibraryName": "theme-chalk"
             }
         ]
-        // ["import", {
-        //     "libraryName": "antd",
-        //     "libraryDirectory": "es",
-        //     "style": true
-        // }]
         // ["@babel/plugin-proposal-decorators",{"legacy": true }],
         // "react-hot-loader/babel",
         // "add-module-exports",
