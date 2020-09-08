@@ -7,10 +7,9 @@ export default {
 
   // 注册ipc事件
   register(): void {
-    ipcMain.on('crawlerMain', (event, arg) => {
-      console.log('crawlerMain', arg);
+    ipcMain.on('crawlerMain', () => {
+      console.log('crawlerMain');
       crawlerMain();
-      event.reply('crawlerMain', 'start');
     });
   },
 

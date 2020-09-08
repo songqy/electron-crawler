@@ -3,9 +3,10 @@ export interface RootState {
     version: string,
 }
 
+export type MessageType = 'log' | 'error'
 
 export interface LoggerMessagesOption {
-    type: 'log' | 'error';
+    type: MessageType;
     message: string;
     index: number,
 }

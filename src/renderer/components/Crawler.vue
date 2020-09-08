@@ -23,6 +23,9 @@ export default {
   mounted: function () {
     console.log('baseUrl1',process.env.baseUrl1)
     console.log('baseUrl2',process.env.baseUrl2)
+    console.log('node version',process.versions.node)
+    console.log('electron version',process.versions.electron)
+    console.log('chrome version',process.versions.chrome)
   },
 
   computed: {
