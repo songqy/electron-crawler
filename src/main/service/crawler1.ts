@@ -13,8 +13,8 @@ const saveInfo = async($: CheerioStatic, file: string): Promise<void> => {
   const title = $('#htilte').html();
   const desc = $('#ddesc').html();
   const infoJson = {
-    title: title,
-    desc: desc,
+    title,
+    desc,
   };
   const fileName = file + '/info.json';
   await writeFile(fileName, JSON.stringify(infoJson));

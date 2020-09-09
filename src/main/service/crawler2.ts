@@ -9,13 +9,18 @@ import logger from '@/main/common/logger';
 
 const baseUrl = config.baseUrl2;
 
+interface newEndResponse {
+    newEnd: number,
+    stop: boolean,
+}
+
 const saveInfo = async ($: CheerioStatic, file: string): Promise<void> => {
   // 获取title
-  const title = $('.article-title').html();
+  const title = $('.article-title').html() || '';
   const desc = ($('.article-content').html() || '').replace(/<[^>]+>/g, '');
   const infoJson = {
-    title: title,
-    desc: desc,
+    title,
+    desc,
   };
   const fileName = file + '/info.json';
   await writeFile(fileName, JSON.stringify(infoJson));
@@ -32,12 +37,12 @@ const getImgSrcList = ($: CheerioStatic, imgList: Cheerio, imgSrcList: string[])
 
 const parseImgSrcList = async(url: string, imgSrcList: string[], file: string, cnt = 1): Promise<boolean> => {
   logger.log(url);
-  let html = await httpRequest.httpGetHtml(url);
-  if (!html) {
+  const htmlBuffer = await httpRequest.httpGetHtml(url);
+  if (!htmlBuffer) {
     //停止操作
     return false;
   }
-  html = iconv.decode(html, 'gb2312');
+  const html = iconv.decode(htmlBuffer, 'gb2312');
   //解决中文乱码问题
   const $ = cheerio.load(html, { decodeEntities: false });
 
@@ -66,9 +71,6 @@ const nextPage = async(href: string, startIndex: number, file: string, imgSrcLis
   const flag = await parseImgSrcList(nextUrl, imgSrcList, file, cnt);
   if (!flag) return;
 
-  // let htmlFile = file + '/www_' + cnt + '.html';
-  // this.fileService.write(htmlFile, html);
-
   await utils.sleep(config.pageInterval);
 
   await nextPage(href, startIndex, file, imgSrcList, cnt + 1);
@@ -91,14 +93,17 @@ const startPage = async(href: string, startIndex: number, baseFile: string): Pro
   await savePicList(imgSrcList, file, baseUrl);
 };
 
-const getPageUrl = async(url: string, baseFile: string, end: number, search = 0):Promise<number> => {
-  let html = await httpRequest.httpGetHtml(url);
-  html = iconv.decode(html, 'gb2312');
+const getPageUrl = async(url: string, baseFile: string, end: number, search = 0):Promise<newEndResponse> => {
+  const htmlBuffer = await httpRequest.httpGetHtml(url);
+  if (!htmlBuffer) {
+    return {
+      newEnd: end,
+      stop: true,
+    };
+  }
+  const html = iconv.decode(htmlBuffer, 'gb2312');
   //解决中文乱码问题
   const $ = cheerio.load(html, { decodeEntities: false });
-
-  // const htmlFile = baseFile + 'www_index.html';
-  // writeFile(htmlFile, html);
 
   const list = $('.excerpt-one .thumbnail');
   const urlList: string[] = [];
@@ -115,7 +120,10 @@ const getPageUrl = async(url: string, baseFile: string, end: number, search = 0)
     const r1 = reg1.exec(urlItem);
     const r2 = reg2.exec(urlItem);
     if (!r1 || !r2) {
-      return end;
+      return {
+        newEnd: newEnd || end,
+        stop: true,
+      };
     }
     const index = Number(r1[0].substr(1, 4));
     const href = r2[0];
@@ -128,11 +136,17 @@ const getPageUrl = async(url: string, baseFile: string, end: number, search = 0)
         logger.log(`${index} pass`);
         continue;
       } else if (index < search) {
-        return newEnd;
+        return {
+          newEnd,
+          stop: true,
+        };
       }
     } else {
       if (index <= end) {
-        return newEnd;
+        return {
+          newEnd,
+          stop: true,
+        };
       }
     }
 
@@ -141,19 +155,26 @@ const getPageUrl = async(url: string, baseFile: string, end: number, search = 0)
     await utils.sleep(config.pageInterval);
   }
 
-  return newEnd;
+  return {
+    newEnd,
+    stop: false,
+  };
 };
 
 const nextIndexPage = async(baseFile: string, end: number, cnt = 2, search = 0)  => {
   const url = baseUrl + '/page/' + cnt + '.html';
-  await getPageUrl(url, baseFile, end, search);
-  await nextIndexPage(baseFile, end, cnt + 1, search);
+  const { stop } = await getPageUrl(url, baseFile, end, search);
+  if (!stop) {
+    await nextIndexPage(baseFile, end, cnt + 1, search);
+  }
 };
 
 const startIndexPage = async(baseFile: string, end: number, search = 0) => {
-  const newEnd = await getPageUrl(baseUrl, baseFile, end, search);
+  const { newEnd, stop } = await getPageUrl(baseUrl, baseFile, end, search);
 
-  await nextIndexPage(baseFile, end, 2, search);
+  if (!stop) {
+    await nextIndexPage(baseFile, end, 2, search);
+  }
 
   return newEnd;
 };
