@@ -36,7 +36,7 @@ export default {
 
   methods: {
     handleWrite: function() {
-      ipc.crawlerMain()
+      ipc.sendMessage('crawlerMain')
     }
   },
 

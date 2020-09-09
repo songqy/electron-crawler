@@ -1,24 +1,26 @@
 import { ipcMain, WebContents } from 'electron';
-import { crawlerMain } from '@/main/service/crawler';
+import ipcActions from './ipcActions';
 
-let contents: WebContents;
+class Ipc {
+  private contents: WebContents | undefined;
 
-export default {
-
-  // 注册ipc事件
-  register(): void {
-    ipcMain.on('crawlerMain', () => {
-      console.log('crawlerMain');
-      crawlerMain();
+  // 初始化ipc事件
+  public init(_contents: WebContents): void {
+    ipcMain.on('message', (event, type, ...args) => {
+      const action = ipcActions.get(type);
+      if (action) {
+        console.log('action:', type);
+        action();
+      }
     });
-  },
 
-  setContent(_contents: WebContents): void {
-    contents = _contents;
-  },
+    this.contents = _contents;
+  }
 
   // main进程发送信息到renderer进程
-  sendMessage(type: string, message: string): void {
-    contents.send(type, message);
-  },
-};
+  public sendMessage(type: string, message: string): void {
+    this.contents?.send('message', type, message);
+  }
+}
+
+export default new Ipc();

@@ -11,7 +11,7 @@ import router from './router';
 import ipc from './ipc';
 import store from './store';
 
-ipc.register();
+ipc.init();
 
 Vue.config.productionTip = false;
 
