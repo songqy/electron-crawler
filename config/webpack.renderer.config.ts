@@ -96,7 +96,6 @@ export default merge(baseConfig, {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          // 'vue-style-loader',
           'css-loader',
         ],
       },
