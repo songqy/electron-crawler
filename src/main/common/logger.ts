@@ -5,11 +5,11 @@ type loggerOptions = string | number;
 export default {
   log(...args: loggerOptions[]): void {
     console.log(...args);
-    ipc.sendMessage('logMessage', args.join(' '));
+    ipc.sendMessage('logMessage', { message: args.join(' ') });
   },
 
   error(...args: loggerOptions[]): void {
     console.error(...args);
-    ipc.sendMessage('errorMessage', args.join(' '));
+    ipc.sendMessage('errorMessage', { message: args.join(' ') });
   },
 };

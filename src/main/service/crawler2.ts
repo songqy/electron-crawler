@@ -179,11 +179,15 @@ const startIndexPage = async(baseFile: string, end: number, search = 0) => {
   return newEnd;
 };
 
-export const crawler2 = async(end2: number, baseFile: string):Promise<number> => {
+export const crawler2 = async(end2: number, baseFile: string): Promise<number> => {
   if (!config.crawlerS2) {
     return end2;
   }
   const newEnd = await startIndexPage(baseFile, end2);
 
   return newEnd;
+};
+
+export const singleCrawler2 = async(num: number, baseFile: string): Promise<void> => {
+  await startIndexPage(baseFile, 0, num);
 };

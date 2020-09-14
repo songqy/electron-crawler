@@ -5,6 +5,7 @@ import 'dotenv/config';
 import Vue from 'vue';
 import {
   Button,
+  InputNumber,
 } from 'element-ui';
 import App from './App';
 import router from './router';
@@ -16,6 +17,7 @@ ipc.init();
 Vue.config.productionTip = false;
 
 Vue.use(Button);
+Vue.use(InputNumber);
 
 /* eslint-disable no-new */
 new Vue({

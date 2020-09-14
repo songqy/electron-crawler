@@ -7,7 +7,7 @@ const actions = [
   },
 ];
 
-type promiseFun = () => Promise<void>
+type promiseFun = (data: any) => Promise<void>
 
 const actionMap = new Map<string, promiseFun>();
 for (const item of actions) {

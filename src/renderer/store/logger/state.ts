@@ -1,6 +1,6 @@
-import { LoggerMessagesOption, LoggerState } from '../../interface';
+import { LoggerMessagesOptions, LoggerState } from '../../interface';
 
-const loggerMessages: LoggerMessagesOption[] = [];
+const loggerMessages: LoggerMessagesOptions[] = [];
 
 const state: LoggerState = {
   loggerMessages,

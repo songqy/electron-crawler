@@ -1,10 +1,10 @@
 import { PUSH_MESSAGES, CLEAR_MESSAGES } from './mutationTypes';
 import { ActionTree } from 'vuex';
-import { RootState, LoggerState, LoggerMessagesOption } from '../../interface';
+import { RootState, LoggerState, LoggerMessagesOptions } from '../../interface';
 
 
 const actions: ActionTree<LoggerState, RootState> = {
-  pushMessages({ commit }, messages: LoggerMessagesOption[]): void {
+  pushMessages({ commit }, messages: LoggerMessagesOptions[]): void {
     commit(PUSH_MESSAGES, messages);
   },
 

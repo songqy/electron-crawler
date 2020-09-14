@@ -1,12 +1,17 @@
 <template>
   <div class="crawler">
-    <el-button v-on:click="handleWrite">开始</el-button>
+    <el-button v-on:click="handleStart">开始</el-button>
+    <div class="crawlerNum">
+      s1:<el-input-number v-model="s1"></el-input-number>
+    </div>
+    <div class="crawlerNum">
+      s2:<el-input-number v-model="s2"></el-input-number>
+    </div>
     <div id="logger">
       <div v-for="loggerMessage in loggerMessages" :key=loggerMessage.index>
         {{loggerMessage.message}}
       </div>
     </div>
-    <!-- <div><router-link to="/">home</router-link></div> -->
   </div>
 </template>
 
@@ -35,15 +40,28 @@ export default {
   },
 
   methods: {
-    handleWrite: function() {
-      ipc.sendMessage('crawlerMain')
+    handleStart: function() {
+      let data
+      if(this.s1) {
+        data = {
+          s1: this.s1
+        }
+      }else if(this.s2) {
+        data = {
+          s2: this.s2
+        }
+      }
+      console.log('s1',this.s1)
+      console.log('s2',this.s2)
+      ipc.sendMessage('crawlerMain', data)
     }
   },
 
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      name
+      name,
+      s1: null,
+      s2: null
     }
   }
 }
@@ -55,6 +73,10 @@ export default {
   height: 100%;
   display:flex;
   flex-direction: column;
+}
+
+.crawlerNum {
+  margin: 10px 0;
 }
 
 #logger {

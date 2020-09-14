@@ -1,11 +1,11 @@
 
 import store from '@/renderer/store';
-import { LoggerMessagesOption, MessageType } from '@/renderer/interface';
+import { LoggerMessagesOptions, MessageType, MessageOptions } from '@/renderer/interface';
 
 let count = 0;
 
 const pushMessages = (message: string, type: MessageType) => {
-  const loggerMessage: LoggerMessagesOption = {
+  const loggerMessage: LoggerMessagesOptions = {
     type,
     message,
     index: ++count,
@@ -20,22 +20,24 @@ const pushMessages = (message: string, type: MessageType) => {
 const actions = [
   {
     key: 'logMessage',
-    action: (args: any[]) => {
-      console.log(...args);
-      pushMessages(args.join(' '), 'log');
+    action: (data: MessageOptions) => {
+      const { message } = data;
+      console.log(message);
+      pushMessages(message, 'log');
     },
   },
   {
     key: 'errorMessage',
-    action: (args: any[]) => {
-      console.error(...args);
-      pushMessages(args.join(' '), 'error');
+    action: (data: MessageOptions) => {
+      const { message } = data;
+      console.log(message);
+      pushMessages(message, 'error');
     },
   },
 ];
 
-type promiseFun = () => Promise<void>;
-type fun = (args: any[]) => void;
+type promiseFun = (data: any) => Promise<void>;
+type fun = (data: any) => void;
 
 const actionMap = new Map<string, promiseFun | fun>();
 for (const item of actions) {

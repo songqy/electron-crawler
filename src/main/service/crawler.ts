@@ -5,6 +5,9 @@ import moment from 'moment';
 import config from '@/main/config';
 import { mkdir } from '@/main/modal/file';
 import logger from '@/main/common/logger';
+import { CrawlerOptions } from '@/main/interface';
+import { singleCrawler1 } from '@/main/service/crawler1';
+import { singleCrawler2 } from '@/main/service/crawler2';
 
 
 const getBaseFile = async(): Promise<string> => {
@@ -31,23 +34,22 @@ const crawlerAll = async(baseFile: string): Promise<void> => {
   setStartEnd(start1, end2);
 };
 
-export const crawlerMain = async(): Promise<void> => {
-//   const { s1, s2, zip } = options;
+export const crawlerMain = async(options?: CrawlerOptions): Promise<void> => {
+  const s1 = options?.s1;
+  const s2 = options?.s2;
   const baseFile = await getBaseFile();
 
   // 只爬一个
-  //   if (s1) {
-  //     logger.log(s1 + ' is search');
-  //     await this.crawlerService1.singleCrawler(s1, baseFile);
-  //     logger.log(s1 + ' is done');
-  //   } else if (s2) {
-  //     logger.log(s2 + ' is search');
-  //     await this.crawlerService2.singleCrawler(s2, baseFile);
-  //     logger.log(s2 + ' is done');
-  //   } else {
-  //     await this.crawlerAll(baseFile, zip);
-  //   }
-
-  await crawlerAll(baseFile);
+  if (s1) {
+    logger.log(s1 + ' is search');
+    await singleCrawler1(s1, baseFile);
+    logger.log(s1 + ' is done');
+  } else if (s2) {
+    logger.log(s2 + ' is search');
+    await singleCrawler2(s2, baseFile);
+    logger.log(s2 + ' is done');
+  } else {
+    await crawlerAll(baseFile);
+  }
 };
 

@@ -6,11 +6,11 @@ class Ipc {
 
   // 初始化ipc事件
   public init(_contents: WebContents): void {
-    ipcMain.on('message', (event, type, ...args) => {
+    ipcMain.on('message', (event, type: string, data?: any) => {
       const action = ipcActions.get(type);
       if (action) {
         console.log('action:', type);
-        action();
+        action(data);
       }
     });
 
@@ -18,8 +18,8 @@ class Ipc {
   }
 
   // main进程发送信息到renderer进程
-  public sendMessage(type: string, message: string): void {
-    this.contents?.send('message', type, message);
+  public sendMessage(type: string, data?: any): void {
+    this.contents?.send('message', type, data);
   }
 }
 

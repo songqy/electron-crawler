@@ -124,3 +124,8 @@ export const crawler1 = async(start1: number, baseFile: string): Promise<number>
 
   return newStart;
 };
+
+// 只爬一个
+export const singleCrawler1 = async(num: number, baseFile: string): Promise<void> => {
+  await startPage(num, baseFile);
+};

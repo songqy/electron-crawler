@@ -5,7 +5,7 @@ export interface RootState {
 
 export type MessageType = 'log' | 'error'
 
-export interface LoggerMessagesOption {
+export interface LoggerMessagesOptions {
     type: MessageType;
     message: string;
     index: number,
@@ -13,5 +13,10 @@ export interface LoggerMessagesOption {
 
 
 export interface LoggerState {
-    loggerMessages: LoggerMessagesOption[],
+    loggerMessages: LoggerMessagesOptions[],
+}
+
+
+export interface MessageOptions {
+    message: string,
 }
