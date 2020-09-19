@@ -3,9 +3,11 @@
     <el-button v-on:click="handleStart">开始</el-button>
     <div class="crawlerNum">
       s1:<el-input-number v-model="s1"></el-input-number>
+      <el-button v-on:click="handleStartS1">开始</el-button>
     </div>
     <div class="crawlerNum">
       s2:<el-input-number v-model="s2"></el-input-number>
+      <el-button v-on:click="handleStartS2">开始</el-button>
     </div>
     <div id="logger">
       <div v-for="loggerMessage in loggerMessages" :key=loggerMessage.index>
@@ -41,18 +43,32 @@ export default {
 
   methods: {
     handleStart: function() {
+      ipc.sendMessage('crawlerMain')
+    },
+
+    handleStartS1: function() {
+      console.log('s1',this.s1)
       let data
       if(this.s1) {
         data = {
           s1: this.s1
         }
-      }else if(this.s2) {
+      } else {
+        return
+      }
+      ipc.sendMessage('crawlerMain', data)
+    },
+
+    handleStartS2: function() {
+      console.log('s2',this.s2)
+      let data
+      if(this.s2) {
         data = {
           s2: this.s2
         }
+      } else {
+        return
       }
-      console.log('s1',this.s1)
-      console.log('s2',this.s2)
       ipc.sendMessage('crawlerMain', data)
     }
   },

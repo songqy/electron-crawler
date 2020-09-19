@@ -1,6 +1,6 @@
 import path from 'path';
 import { spawn } from 'child_process';
-import { Plugin, HotModuleReplacementPlugin, NamedModulesPlugin } from 'webpack';
+import { Plugin, HotModuleReplacementPlugin } from 'webpack';
 import { Configuration } from 'webpack-dev-server';
 import { merge } from 'webpack-merge';
 import baseConfig from './webpack.base.config';
@@ -33,7 +33,6 @@ let devServer: Configuration | undefined;
 if (isDev) {
   plugins.push(
     new HotModuleReplacementPlugin(),
-    new NamedModulesPlugin(), // HMR shows correct file names in console on update.
   );
   outputConfig = { publicPath };
   devServer = {
