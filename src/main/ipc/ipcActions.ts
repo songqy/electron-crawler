@@ -7,11 +7,4 @@ const actions = [
   },
 ];
 
-type promiseFun = (data: any) => Promise<void>
-
-const actionMap = new Map<string, promiseFun>();
-for (const item of actions) {
-  actionMap.set(item.key, item.action);
-}
-
-export default actionMap;
+export default actions;

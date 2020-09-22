@@ -1,5 +1,8 @@
 import { ipcMain, WebContents } from 'electron';
 import ipcActions from './ipcActions';
+import utils from '@/main/common/utils';
+
+const ipcActionsMap = utils.createActionsMap(ipcActions);
 
 class Ipc {
   private contents: WebContents | undefined;
@@ -7,7 +10,7 @@ class Ipc {
   // 初始化ipc事件
   public init(_contents: WebContents): void {
     ipcMain.on('message', (event, type: string, data?: any) => {
-      const action = ipcActions.get(type);
+      const action = ipcActionsMap.get(type);
       if (action) {
         console.log('action:', type);
         action(data);

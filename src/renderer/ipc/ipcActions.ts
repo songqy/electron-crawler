@@ -20,7 +20,7 @@ const pushMessages = (message: string, type: MessageType) => {
 const actions = [
   {
     key: 'logMessage',
-    action: (data: MessageOptions) => {
+    action: (data: MessageOptions): void => {
       const { message } = data;
       console.log(message);
       pushMessages(message, 'log');
@@ -28,7 +28,7 @@ const actions = [
   },
   {
     key: 'errorMessage',
-    action: (data: MessageOptions) => {
+    action: (data: MessageOptions): void => {
       const { message } = data;
       console.log(message);
       pushMessages(message, 'error');
@@ -36,12 +36,4 @@ const actions = [
   },
 ];
 
-type promiseFun = (data: any) => Promise<void>;
-type fun = (data: any) => void;
-
-const actionMap = new Map<string, promiseFun | fun>();
-for (const item of actions) {
-  actionMap.set(item.key, item.action);
-}
-
-export default actionMap;
+export default actions;
