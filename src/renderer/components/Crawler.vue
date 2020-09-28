@@ -21,6 +21,7 @@
 
 import ipc from '../ipc'
 import { createNamespacedHelpers } from 'vuex'
+import pkg from '../../../package.json'
 
 const { mapState } = createNamespacedHelpers('logger')
 
@@ -30,6 +31,7 @@ export default {
   mounted: function () {
     console.log('baseUrl1',process.env.baseUrl1)
     console.log('baseUrl2',process.env.baseUrl2)
+    console.log('app version', pkg.version)
     console.log('node version',process.versions.node)
     console.log('electron version',process.versions.electron)
     console.log('chrome version',process.versions.chrome)

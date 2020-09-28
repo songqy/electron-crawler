@@ -1,7 +1,7 @@
 import { crawler1 } from '@/main/service/crawler1';
 import { crawler2 } from '@/main/service/crawler2';
 import { setStartEnd, getStartEnd } from './startEnd';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import config from '@/main/config';
 import { mkdir } from '@/main/modal/file';
 import logger from '@/main/common/logger';
@@ -11,7 +11,7 @@ import { singleCrawler2 } from '@/main/service/crawler2';
 
 
 const getBaseFile = async(): Promise<string> => {
-  const dateStr: string = moment().format('YYYY-MM-DD');
+  const dateStr = dayjs().format('YYYY-MM-DD');
   const baseFile = `${config.fileDir}/${dateStr}/`;
   await mkdir(baseFile);
   return baseFile;
