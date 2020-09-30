@@ -1,13 +1,11 @@
-import { crawler1 } from '@/main/service/crawler1';
-import { crawler2 } from '@/main/service/crawler2';
-import { setStartEnd, getStartEnd } from './startEnd';
+import { crawler1, singleCrawler1 } from '@/main/service/crawler1';
+import { crawler2, singleCrawler2 } from '@/main/service/crawler2';
+import { setStartEnd, getStartEnd } from '@/main/service/startEnd';
 import dayjs from 'dayjs';
 import config from '@/main/config';
 import { mkdir } from '@/main/modal/file';
 import logger from '@/main/common/logger';
 import { CrawlerOptions } from '@/main/interface';
-import { singleCrawler1 } from '@/main/service/crawler1';
-import { singleCrawler2 } from '@/main/service/crawler2';
 
 
 const getBaseFile = async(): Promise<string> => {
@@ -31,7 +29,7 @@ const crawlerAll = async(baseFile: string): Promise<void> => {
   start1 = Math.max(start1_, start1);
   end2 = Math.max(end2_, end2);
 
-  setStartEnd(start1, end2);
+  await setStartEnd(start1, end2);
 };
 
 export const crawlerMain = async(options?: CrawlerOptions): Promise<void> => {

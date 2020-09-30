@@ -1,17 +1,18 @@
 <template>
   <div class="crawler">
-    <el-button v-on:click="handleStart">开始</el-button>
+    <el-button class="startBtn" v-on:click="handleStart">开始</el-button>
     <div class="crawlerNum">
-      s1:<el-input-number v-model="s1"></el-input-number>
+      s1: <el-input-number v-model="s1"></el-input-number>
       <el-button v-on:click="handleStartS1">开始</el-button>
     </div>
     <div class="crawlerNum">
-      s2:<el-input-number v-model="s2"></el-input-number>
+      s2: <el-input-number v-model="s2"></el-input-number>
       <el-button v-on:click="handleStartS2">开始</el-button>
     </div>
     <div id="logger">
       <div v-for="loggerMessage in loggerMessages" :key=loggerMessage.index>
-        {{loggerMessage.message}}
+        <span v-if="loggerMessage.type==='log'">{{loggerMessage.message}}</span>
+        <span v-else class="errorMessage">{{loggerMessage.message}}</span>
       </div>
     </div>
   </div>
@@ -50,28 +51,16 @@ export default {
 
     handleStartS1: function() {
       console.log('s1',this.s1)
-      let data
       if(this.s1) {
-        data = {
-          s1: this.s1
-        }
-      } else {
-        return
-      }
-      ipc.sendMessage('crawlerMain', data)
+        ipc.sendMessage('crawlerMain', {s1: this.s1})
+      } 
     },
 
     handleStartS2: function() {
       console.log('s2',this.s2)
-      let data
       if(this.s2) {
-        data = {
-          s2: this.s2
-        }
-      } else {
-        return
+        ipc.sendMessage('crawlerMain', {s2: this.s2})
       }
-      ipc.sendMessage('crawlerMain', data)
     }
   },
 
@@ -95,6 +84,14 @@ export default {
 
 .crawlerNum {
   margin: 10px 0;
+}
+
+.startBtn {
+  margin: 16px 16px;
+}
+
+.errorMessage {
+  color: red;
 }
 
 #logger {
