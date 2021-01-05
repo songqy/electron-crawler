@@ -1,7 +1,7 @@
 
 import httpRequest from '@/main/modal/httpRequest';
 import { writeFile, existsFile } from '@/main/modal/file';
-// import utils from '@/main/common/utils';
+import utils, { groupFun } from '@/main/common/utils';
 import logger from '@/main/common/logger';
 
 
@@ -19,29 +19,33 @@ const saveSinglePic = async(i: number, imgUrl: string, file: string, originUrl?:
 };
 
 export const savePicList = async(imgSrcList: string[], file: string, originUrl?: string): Promise<void> => {
-  let p = [];
+  const p: groupFun<void>[] = [];
   const len = imgSrcList.length;
 
   const htmlFile = file + '/img_src_list.json';
   writeFile(htmlFile, JSON.stringify(imgSrcList));
 
   //分开多组请求
-  for (let i = 0; i < len; ++i) {
-    const imgUrl = imgSrcList[i];
-    p.push(saveSinglePic(i, imgUrl, file, originUrl));
-    if (i % 30 === 0 && i !== 0) {
-      await Promise.all(p);
-      p = [];
-    }
-  }
-  if (p.length > 0) {
-    await Promise.all(p);
-  }
-
-  // 分开多组请求
   // for (let i = 0; i < len; ++i) {
   //   const imgUrl = imgSrcList[i];
   //   p.push(saveSinglePic(i, imgUrl, file, originUrl));
+  //   if (i % 30 === 0 && i !== 0) {
+  //     await Promise.all(p);
+  //     p = [];
+  //   }
   // }
-  // await utils.promiseGroup(p, 30);
+  // if (p.length > 0) {
+  //   await Promise.all(p);
+  // }
+
+  // 分开多组请求
+  for (let i = 0; i < len; ++i) {
+    const imgUrl = imgSrcList[i];
+    p.push({
+      fun: saveSinglePic,
+      args: [i, imgUrl, file, originUrl],
+    });
+    // p.push(saveSinglePic(i, imgUrl, file, originUrl));
+  }
+  await utils.promiseGroup(p, 30);
 };

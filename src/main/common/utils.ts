@@ -6,11 +6,17 @@ interface actionOption {
   action: actionFun,
 }
 
-async function promiseGroup<T>(functionList: Promise<T>[], countPerGroup: number): Promise<T[]> {
+export interface groupFun<T> {
+  fun: (...args: any[]) => Promise<T>,
+  args: any[],
+}
+
+async function promiseGroup<T>(functionList: groupFun<T>[], countPerGroup: number): Promise<T[]> {
   let p: Promise<T>[] = [];
   const resList: T[] = [];
   for (let i = 0; i < functionList.length; ++i) {
-    p.push(functionList[i]);
+    const { fun, args } = functionList[i];
+    p.push(fun(...args));
     if ((i + 1) % countPerGroup === 0) {
       const res = await Promise.all(p);
       resList.push(...res);
