@@ -1,6 +1,6 @@
 
 import httpRequest from '@/main/modal/httpRequest';
-import { writeFile, existsFile } from '@/main/modal/file';
+import { writeFile, existsFile, readFile } from '@/main/modal/file';
 import utils, { groupFun } from '@/main/common/utils';
 import logger from '@/main/common/logger';
 
@@ -16,6 +16,16 @@ const saveSinglePic = async(i: number, imgUrl: string, file: string, originUrl?:
   if (img) {
     writeFile(imgFile, img);
   }
+};
+
+export const getPicList = async(file: string): Promise<string[]> => {
+  const htmlFile = file + '/img_src_list.json';
+  if (await existsFile(htmlFile)) {
+    logger.log(`${htmlFile}, The file is already exists`);
+    const s = await readFile(htmlFile);
+    return JSON.parse(s.toString());
+  }
+  return [];
 };
 
 export const savePicList = async(imgSrcList: string[], file: string, originUrl?: string): Promise<void> => {

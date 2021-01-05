@@ -3,7 +3,7 @@ import utils from '@/main/common/utils';
 import cheerio from 'cheerio';
 import httpRequest from '@/main/modal/httpRequest';
 import { mkdir, writeFile } from '@/main/modal/file';
-import { savePicList } from '@/main/service/savePic';
+import { savePicList, getPicList } from '@/main/service/savePic';
 import logger from '@/main/common/logger';
 
 const baseUrl = config.baseUrl1;
@@ -84,10 +84,15 @@ const startPage = async(startIndex: number, baseFile: string) => {
   const htmlFile = file + '/www_1.html';
   writeFile(htmlFile, html);
 
-  const { nextUrl, imgSrcList } = parseHtml(baseUrl, $);
+  // 判断是否已存在，存在的话不再获取图片url列表
+  const imgSrcList = await getPicList(file);
+  if (imgSrcList.length === 0) {
+    const { nextUrl, imgSrcList: _imgSrcList } = parseHtml(baseUrl, $);
+    imgSrcList.push(..._imgSrcList);
 
-  const newImgSrcList = await nextPage(nextUrl);
-  imgSrcList.push(...newImgSrcList);
+    const newImgSrcList = await nextPage(nextUrl);
+    imgSrcList.push(...newImgSrcList);
+  }
 
   //logger.log(imgSrcList);
 
