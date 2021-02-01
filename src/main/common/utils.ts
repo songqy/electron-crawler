@@ -1,5 +1,5 @@
 
-type actionFun = (data: any) => Promise<void> | ((data: any) => void);
+type actionFun = ((data: any) => Promise<void>) | ((data: any) => void);
 
 interface actionOption {
   key: string,
