@@ -51,6 +51,7 @@ const baseConfig: Configuration =  {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
       '@c': resolve('src/renderer/components'),
+      '@p': resolve('src/renderer/pages'),
     },
   },
 

@@ -1,5 +1,6 @@
 <template>
   <div class="crawler">
+    <top-menu :defaultIndex="1"></top-menu>
     <el-button class="startBtn" v-on:click="handleStart">开始</el-button>
     <div class="crawlerNum">
       s1: <el-input-number v-model="s1"></el-input-number>
@@ -23,11 +24,15 @@
 import ipc from '../ipc'
 import { createNamespacedHelpers } from 'vuex'
 import pkg from '../../../package.json'
+import TopMenu from '../components/TopMenu.vue'
 
 const { mapState } = createNamespacedHelpers('logger')
 
 export default {
+  components: { TopMenu },
   name: 'Crawler',
+  s1: null,
+  s2: null,
 
   mounted: function () {
     console.log('baseUrl1',process.env.baseUrl1)
@@ -66,9 +71,9 @@ export default {
 
   data () {
     return {
-      name,
-      s1: null,
-      s2: null
+      name: this.name,
+      s1: this.s1,
+      s2: this.s2,
     }
   }
 }

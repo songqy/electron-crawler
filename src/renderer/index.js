@@ -6,11 +6,15 @@ import Vue from 'vue';
 import {
   Button,
   InputNumber,
+  Menu,
+  MenuItem,
 } from 'element-ui';
 import App from './App';
 import router from './router';
 import ipc from './ipc';
 import store from './store';
+
+import TopMenu from '@c/TopMenu';
 
 ipc.init();
 
@@ -18,6 +22,10 @@ Vue.config.productionTip = false;
 
 Vue.use(Button);
 Vue.use(InputNumber);
+Vue.use(Menu);
+Vue.use(MenuItem);
+
+Vue.component(TopMenu.name, TopMenu);
 
 /* eslint-disable no-new */
 new Vue({
