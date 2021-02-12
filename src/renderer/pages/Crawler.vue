@@ -25,6 +25,7 @@ import ipc from '../ipc'
 import { createNamespacedHelpers } from 'vuex'
 import pkg from '../../../package.json'
 import TopMenu from '../components/TopMenu.vue'
+import { crawlerMain } from '../service/crawler'
 
 const { mapState } = createNamespacedHelpers('logger')
 
@@ -51,20 +52,20 @@ export default {
 
   methods: {
     handleStart: function() {
-      ipc.sendMessage('crawlerMain')
+      crawlerMain()
     },
 
     handleStartS1: function() {
       console.log('s1',this.s1)
       if(this.s1) {
-        ipc.sendMessage('crawlerMain', {s1: this.s1})
+        crawlerMain({s1: this.s1})
       } 
     },
 
     handleStartS2: function() {
       console.log('s2',this.s2)
       if(this.s2) {
-        ipc.sendMessage('crawlerMain', {s2: this.s2})
+        crawlerMain({s2: this.s2})
       }
     }
   },

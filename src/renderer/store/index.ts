@@ -3,6 +3,7 @@ import Vuex, { StoreOptions } from 'vuex';
 import { RootState } from '../interface';
 
 import logger from './logger';
+import viewPhoto from './viewPhoto';
 
 Vue.use(Vuex);
 
@@ -13,6 +14,7 @@ const store: StoreOptions<RootState> = {
   },
   modules: {
     logger,
+    viewPhoto,
   },
 };
 

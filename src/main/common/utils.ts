@@ -1,5 +1,5 @@
 
-type actionFun = ((data: any) => Promise<void>) | ((data: any) => void);
+type actionFun = ((data: any) => Promise<any>) | ((data: any) => any);
 
 interface actionOption {
   key: string,
@@ -30,6 +30,26 @@ async function promiseGroup<T>(functionList: groupFun<T>[], countPerGroup: numbe
   return resList;
 }
 
+const blackFiles = [
+  '.DS_Store',
+  'img_src_list.json',
+  'www_1.html',
+  'info.json',
+  'start_end.txt',
+];
+
+const blackSuffix = [
+  '.zip',
+  '.json',
+  '.html',
+  '.txt',
+];
+
+const checkSuffix = (pathname: string) => {
+  return blackSuffix.some(suffix => (new RegExp(suffix)).exec(pathname));
+};
+
+
 export default {
   sleep: (ms: number): Promise<void> => {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -44,4 +64,13 @@ export default {
   },
 
   promiseGroup,
+
+
+  /**
+  * 判断是否可以返回
+  */
+  isWhite: (pathname: string): boolean => {
+    return !(blackFiles.includes(pathname) || checkSuffix(pathname));
+  },
+
 };
