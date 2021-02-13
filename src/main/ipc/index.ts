@@ -28,7 +28,7 @@ class Ipc {
 
   // main进程发送信息到renderer进程
   public sendMessage(type: string, data?: any): void {
-    this.contents?.send(type, type, data);
+    this.contents?.send(type, data);
   }
 }
 
