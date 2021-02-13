@@ -1,7 +1,7 @@
 import { MutationTree } from 'vuex';
-import { SET_MENUS, SET_FILES, SET_IMGS } from './mutationTypes';
+import { SET_MENUS, SET_FILES, SET_IMGS, SET_INFO, SET_PARENT } from './mutationTypes';
 import { ViewPhotoState, Menu, Img } from '../../interface';
-import { File } from '@/main/interface';
+import { File, Info } from '@/main/interface';
 
 
 const mutations: MutationTree<ViewPhotoState> = {
@@ -13,6 +13,12 @@ const mutations: MutationTree<ViewPhotoState> = {
   },
   [SET_IMGS] (state, payload: Img[]) {
     state.imgs = [...payload];
+  },
+  [SET_INFO] (state, payload: Info) {
+    state.info = payload;
+  },
+  [SET_PARENT] (state, payload: string) {
+    state.parent = payload;
   },
 };
 

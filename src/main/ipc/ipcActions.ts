@@ -1,5 +1,5 @@
 import { crawlerMain } from '@/main/service/crawler';
-import { getDirsByParent } from '@/main/service/viewPhoto';
+import { getDirsByParent, setInfo } from '@/main/service/viewPhoto';
 
 const actions = [
   {
@@ -9,6 +9,10 @@ const actions = [
   {
     key: 'dirsByParent',
     action: getDirsByParent,
+  },
+  {
+    key: 'setInfo',
+    action: setInfo,
   },
 ];
 

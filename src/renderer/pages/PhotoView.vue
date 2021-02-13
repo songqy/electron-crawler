@@ -5,6 +5,15 @@
       <el-backtop target=".content"></el-backtop>
       <tree-menu @onSelect=getDir :files="menus" class="menu"></tree-menu>
       <div class="content" id="imgContent">
+        <h2>{{info.title}}</h2>
+        <div class="desc">{{info.desc}}</div>
+        <div class="rank" v-if="info.title">
+          <div class="rank-title">评分</div>
+          <el-rate
+            @change="rankChange"
+            v-model="info.rank"
+          ></el-rate>
+        </div>
         <img v-for="img in imgs" :key=img.index :src=img.src />
       </div>
     </div>
@@ -15,7 +24,7 @@
 <script>
 
 import { createNamespacedHelpers } from 'vuex'
-import { getDirsByParent } from '../service/viewPhoto'
+import { getDirsByParent, setInfo } from '../service/viewPhoto'
 
 const { mapState, mapActions } = createNamespacedHelpers('viewPhoto')
 
@@ -41,13 +50,15 @@ export default {
     ...mapState({
       menus: state => state.menus,
       files: state => state.files,
-      imgs: state => state.imgs
+      imgs: state => state.imgs,
+      info: state => state.info,
+      parent: state => state.parent,
     })
   },
 
   methods: {
     ...mapActions([
-      'refreshImgs'
+      'refreshImgs',
     ]),
     getDir (parent) {
       if (needFetchChildren(this.files, parent)) {
@@ -56,6 +67,9 @@ export default {
         this.refreshImgs(parent)
       }
     },
+    rankChange() {
+        setInfo(this.info, this.parent)
+    }
   },
 }
 </script>
@@ -76,10 +90,22 @@ export default {
 .menu {
    width: 200px;
    flex: 0 0 200px;
+   overflow: auto;
 }
 
 .content {
   overflow: auto;
+}
+
+.desc {
+    margin-bottom: 10px;
+}
+
+.rank {
+  margin-bottom: 10px;
+}
+.rank-title {
+  margin-bottom: 4px;
 }
 
 /* img {

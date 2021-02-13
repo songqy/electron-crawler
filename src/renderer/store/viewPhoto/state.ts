@@ -5,5 +5,10 @@ const state: ViewPhotoState = {
   menus: [],
   files: [],
   imgs: [],
+  info: {
+    title: '',
+    desc: '',
+  },
+  parent: '',
 };
 export default state;

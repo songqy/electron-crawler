@@ -1,7 +1,7 @@
-import { SET_MENUS, SET_FILES, SET_IMGS } from './mutationTypes';
+import { SET_MENUS, SET_FILES, SET_IMGS, SET_INFO, SET_PARENT } from './mutationTypes';
 import { ActionTree } from 'vuex';
 import { RootState, ViewPhotoState, Menu, Img } from '../../interface';
-import { File, FilesAndParent } from '@/main/interface';
+import { File, FilesAndParent, Info } from '@/main/interface';
 import config from '@/main/config';
 
 
@@ -66,8 +66,8 @@ const getImgList = (files: File[], values: string[]): File[] => {
     }
     target = parentFiles.find(file => file.filePath === value);
   });
-  if (target?.children && target?.children.length > 0 && isImg(target.children[0].filePath)) {
-    return target.children;
+  if (target?.children && target?.children.length > 0) {
+    return target.children.filter(({ filePath }) => isImg(filePath));
   }
   return [];
 };
@@ -91,6 +91,23 @@ const parseImgs = (files: File[], parent: string): Img[] => {
   return imgs;
 };
 
+const getInfo = (files: File[], values: string[]): Info | undefined => {
+  let target: File | undefined, parentFiles = files;
+  values.forEach((value, ind) => {
+    if (ind > 0 && target) {
+      parentFiles = target.children;
+    }
+    target = parentFiles.find(file => file.filePath === value);
+  });
+  if (target?.children && target?.children.length > 0) {
+    const infoList = target.children.filter(({ filePath }) => filePath.match(/info\.json/g));
+    if (infoList.length > 0) {
+      return infoList[0].info;
+    }
+  }
+  return;
+};
+
 
 const actions: ActionTree<ViewPhotoState, RootState> = {
   /** 更新Menu */
@@ -104,17 +121,23 @@ const actions: ActionTree<ViewPhotoState, RootState> = {
   },
 
   refreshImgs({ commit, state }, parent: string): void {
+    commit(SET_PARENT, parent);
     if (parent === '/') return;
     const values = parent.split('/').slice(1);
     const imgList = getImgList(state.files, values);
-    if (imgList) {
-      const imgs = parseImgs(imgList, parent);
-      commit(SET_IMGS, imgs);
-      // 滚动条回到顶部
-      const imgDiv = document.getElementById('imgContent');
-      if (imgDiv) {
-        imgDiv.scrollTop = 0;
-      }
+    const imgs = parseImgs(imgList, parent);
+    commit(SET_IMGS, imgs);
+    // 滚动条回到顶部
+    const imgDiv = document.getElementById('imgContent');
+    if (imgDiv) {
+      imgDiv.scrollTop = 0;
+    }
+
+    const info = getInfo(state.files, values);
+    if (info) {
+      commit(SET_INFO, info);
+    } else {
+      commit(SET_INFO, {});
     }
   },
 };

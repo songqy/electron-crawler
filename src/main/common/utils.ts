@@ -34,13 +34,13 @@ const blackFiles = [
   '.DS_Store',
   'img_src_list.json',
   'www_1.html',
-  'info.json',
+  'page_url.json',
   'start_end.txt',
 ];
 
 const blackSuffix = [
   '.zip',
-  '.json',
+  // '.json',
   '.html',
   '.txt',
 ];

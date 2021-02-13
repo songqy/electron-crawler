@@ -11,6 +11,7 @@ import {
   Submenu,
   Backtop,
   Icon,
+  Rate,
 } from 'element-ui';
 import App from './App';
 import router from './router';
@@ -32,6 +33,7 @@ Vue.use(MenuItem);
 Vue.use(Submenu);
 Vue.use(Backtop);
 Vue.use(Icon);
+Vue.use(Rate);
 
 Vue.component(TopMenu.name, TopMenu);
 Vue.component(TreeMenu.name, TreeMenu);

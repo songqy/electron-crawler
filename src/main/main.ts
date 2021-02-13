@@ -1,8 +1,12 @@
 // Modules to control application life and create native browser window
 import 'dotenv/config';
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Menu } from 'electron';
 import path from 'path';
 import ipc from '@/main/ipc';
+
+// 去掉默认菜单
+Menu.setApplicationMenu(null);
+
 
 // const installExtensions = async () => {
 //   const installer = require('electron-devtools-installer');

@@ -1,4 +1,4 @@
-import { File } from '@/main/interface';
+import { File, Info } from '@/main/interface';
 
 export interface RootState {
     version: string,
@@ -42,5 +42,9 @@ export interface ViewPhotoState {
     /** 原始的树形结构数据 */
     files: File[],
     /** 当前渲染的图片 */
-    imgs: Img[]
+    imgs: Img[],
+    /** 当前图片信息 */
+    info: Info,
+    /** 当前选中项 */
+    parent: string,
 }
