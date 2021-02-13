@@ -35,12 +35,12 @@ function createWindow () {
   // mainWindow.loadFile(path.join(__dirname, '../app.html'));
   mainWindow.loadFile(path.join(__dirname, 'app.html'));
 
-  // if (process.env.NODE_ENV === 'development') {
-  //   // Open the DevTools.
-  //   mainWindow.webContents.openDevTools();
-  // }
+  if (process.env.NODE_ENV === 'development') {
+    // Open the DevTools.
+    mainWindow.webContents.openDevTools();
+  }
 
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   ipc.init(mainWindow.webContents);
 

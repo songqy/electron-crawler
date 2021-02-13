@@ -8,7 +8,6 @@
         <h2>{{info.title}}</h2>
         <div class="desc">{{info.desc}}</div>
         <div class="rank" v-if="info.title">
-          <div class="rank-title">评分</div>
           <el-rate
             @change="rankChange"
             v-model="info.rank"
@@ -103,9 +102,6 @@ export default {
 
 .rank {
   margin-bottom: 10px;
-}
-.rank-title {
-  margin-bottom: 4px;
 }
 
 /* img {
