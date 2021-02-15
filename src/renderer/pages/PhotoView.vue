@@ -14,6 +14,12 @@
           ></el-rate>
         </div>
         <img v-for="img in imgs" :key=img.index :src=img.src />
+        <div class="rank-footer" v-if="info.title">
+          <el-rate
+            @change="rankChange"
+            v-model="info.rank"
+          ></el-rate>
+        </div>
       </div>
     </div>
     
@@ -102,6 +108,10 @@ export default {
 
 .rank {
   margin-bottom: 10px;
+}
+
+.rank-footer {
+  margin: 16px 0 20px 0;
 }
 
 /* img {
