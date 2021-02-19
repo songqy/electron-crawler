@@ -5,8 +5,15 @@
 </template>
 
 <script>
+
+import router from '@/renderer/router'
+
 export default {
-  name: 'App'
+  name: 'App',
+
+  mounted: function() {
+    router.push('/crawler')
+  },
 }
 </script>
 

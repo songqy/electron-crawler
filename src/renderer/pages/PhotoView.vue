@@ -1,6 +1,6 @@
 <template>
   <div class="photoView">
-    <top-menu :defaultIndex="2"></top-menu>
+    <top-menu activeIndex="/view"></top-menu>
     <div class="container">
       <el-backtop target=".content"></el-backtop>
       <tree-menu @onSelect=getDir :files="menus" class="menu"></tree-menu>

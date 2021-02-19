@@ -16,9 +16,6 @@ class Ipc {
         }
       });
     }
-    // ipcRenderer.on('message', (event, type: string, data?: any) => {
-    //   actionHandle(type, data);
-    // });
   }
 
   public sendMessage(type: string, data?: any): void {

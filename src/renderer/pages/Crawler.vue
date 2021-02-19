@@ -1,6 +1,6 @@
 <template>
   <div class="crawler">
-    <top-menu :defaultIndex="1"></top-menu>
+    <top-menu activeIndex="/crawler"></top-menu>
     <el-button class="startBtn" v-on:click="handleStart">开始</el-button>
     <div class="crawlerNum">
       s1: <el-input-number v-model="s1"></el-input-number>
