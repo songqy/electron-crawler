@@ -1,6 +1,6 @@
 {
   "name": "electron-crawler",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A minimal Electron application",
   "main": "build/main.js",
   "scripts": {
@@ -107,7 +107,6 @@
     },
     "win": {
       "target": [
-        "nsis",
         "msi"
       ],
       "icon": "resources/icon.png"
