@@ -2,7 +2,7 @@ import path from 'path';
 import config from '@/main/config';
 import utils from '@/main/common/utils';
 import { ViewPhotoOptions, File, FilesAndParent, Info, InfoAndParent } from '@/main/interface';
-import { getFiles, existsFile, readFile, writeFile } from '@/main/modal/file';
+import { readdir, existsFile, readFile, writeFile } from '@/main/modal/file';
 
 const fileDir = config.fileDir;
 
@@ -25,7 +25,7 @@ export const getDirsByParent = async(data: ViewPhotoOptions): Promise<FilesAndPa
 
   const dest = path.join(fileDir, parent);
 
-  const files = await getFiles(dest);
+  const files = await readdir(dest);
   const res: File[] = [];
   for (const filePath of files) {
     if (utils.isWhite(filePath)) {
