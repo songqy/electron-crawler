@@ -73,4 +73,19 @@ export default {
     return !(blackFiles.includes(pathname) || checkSuffix(pathname));
   },
 
+  /**
+  * 判断是否info.json
+  */
+  isInfo: (pathname: string): boolean => {
+    return !!pathname.match(/info\.json/g);
+  },
+
+
+  /**
+  * 判断是否文件夹
+  */
+  isDir: (pathname: string): boolean => {
+    return !pathname.match(/\./g);
+  },
+
 };

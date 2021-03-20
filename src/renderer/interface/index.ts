@@ -1,7 +1,8 @@
-import { File, Info } from '@/main/interface';
+import { File, Info, RANK } from '@/main/interface';
 
 export interface RootState {
     version: string,
+    viewType: 'default' | RANK,
 }
 
 export type MessageType = 'log' | 'error'

@@ -1,6 +1,17 @@
 <template>
   <div class="crawler">
     <top-menu activeIndex="/crawler"></top-menu>
+    <el-button class="startBtn" v-on:click="handleStatistics">统计</el-button>
+    <div>
+      <el-radio-group v-model="viewType" size="medium">
+        <el-radio-button label="default">默认</el-radio-button>
+        <el-radio-button label="1"></el-radio-button>
+        <el-radio-button label="2"></el-radio-button>
+        <el-radio-button label="3"></el-radio-button>
+        <el-radio-button label="4"></el-radio-button>
+        <el-radio-button label="5"></el-radio-button>
+      </el-radio-group>
+    </div>
     <el-button class="startBtn" v-on:click="handleStart">开始</el-button>
     <div class="crawlerNum">
       s1: <el-input-number v-model="s1"></el-input-number>
@@ -22,10 +33,11 @@
 <script>
 
 import ipc from '../ipc'
-import { createNamespacedHelpers } from 'vuex'
+import { createNamespacedHelpers, mapState as mapStateRoot } from 'vuex'
 import pkg from '../../../package.json'
 import TopMenu from '../components/TopMenu.vue'
-import { crawlerMain } from '../service/crawler'
+import { crawlerMain, startStatistics } from '../service/crawler'
+import store from '../store'
 
 const { mapState } = createNamespacedHelpers('logger')
 
@@ -47,12 +59,20 @@ export default {
   computed: {
     ...mapState({
       loggerMessages: state => state.loggerMessages,
-    })
+    }),
+    viewType: {
+      get: () => store.state.viewType,
+      set: (val) => store.state.viewType = val,
+    }
   },
 
   methods: {
     handleStart: function() {
       crawlerMain()
+    },
+
+    handleStatistics: function() {
+      startStatistics()
     },
 
     handleStartS1: function() {

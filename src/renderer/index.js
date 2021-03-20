@@ -12,6 +12,8 @@ import {
   Backtop,
   Icon,
   Rate,
+  RadioButton,
+  RadioGroup,
 } from 'element-ui';
 import App from './App';
 import router from './router';
@@ -34,6 +36,8 @@ Vue.use(Submenu);
 Vue.use(Backtop);
 Vue.use(Icon);
 Vue.use(Rate);
+Vue.use(RadioButton);
+Vue.use(RadioGroup);
 
 Vue.component(TopMenu.name, TopMenu);
 Vue.component(TreeMenu.name, TreeMenu);

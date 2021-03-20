@@ -1,5 +1,6 @@
 import { crawlerMain } from '@/main/service/crawler';
 import { getDirsByParent, setInfo } from '@/main/service/viewPhoto';
+import { startStatistics } from '@/main/service/statistics';
 
 const actions = [
   {
@@ -13,6 +14,10 @@ const actions = [
   {
     key: 'setInfo',
     action: setInfo,
+  },
+  {
+    key: 'startStatistics',
+    action: startStatistics,
   },
 ];
 

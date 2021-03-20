@@ -30,6 +30,7 @@
 
 import { createNamespacedHelpers } from 'vuex'
 import { getDirsByParent, setInfo } from '../service/viewPhoto'
+import store from '../store'
 
 const { mapState, mapActions } = createNamespacedHelpers('viewPhoto')
 
@@ -48,7 +49,13 @@ export default {
   name: 'PhotoView',
 
   mounted: function () {
-      getDirsByParent();
+      console.log('viewType',store.state.viewType)
+      if(store.state.viewType === 'default') {
+        getDirsByParent();
+      }else{
+        getDirsByParent('/', store.state.viewType);
+      }
+      
   },
 
   computed: {
