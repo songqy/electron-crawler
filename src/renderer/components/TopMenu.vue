@@ -1,15 +1,15 @@
 <template>
     <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
-      <el-menu-item index="/crawler">爬虫</el-menu-item>
-      <el-menu-item index="/statistics">统计</el-menu-item>
-      <el-menu-item index="/view">展示</el-menu-item>
+      <template v-for="item in reouterList">
+          <el-menu-item :index="item.path" :key="item.name">{{item.title}}</el-menu-item>
+      </template>
     </el-menu>
 </template>
 
 
 <script>
 
-import router from '@/renderer/router'
+import router, { reouterList } from '@/renderer/router'
 
 export default {
   name: 'TopMenu',
@@ -20,6 +20,12 @@ export default {
         router.push(value)
     }
   },
+
+   data () {
+    return {
+      reouterList,
+    }
+  }
 
 }
 </script>

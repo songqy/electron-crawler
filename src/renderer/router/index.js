@@ -6,25 +6,27 @@ import Statistics from '@p/Statistics';
 
 Vue.use(Router);
 
+export const reouterList = [
+  {
+    title: '爬虫',
+    path: '/crawler',
+    name: 'Crawler',
+    component: Crawler,
+  },
+  {
+    title: '统计',
+    path: '/statistics',
+    name: 'Statistics',
+    component: Statistics,
+  },
+  {
+    title: '展示',
+    path: '/view',
+    name: 'PhotoView',
+    component: PhotoView,
+  },
+];
+
 export default new Router({
-  routes: [
-    {
-      title: '爬虫',
-      path: '/crawler',
-      name: 'Crawler',
-      component: Crawler,
-    },
-    {
-      title: '统计',
-      path: '/statistics',
-      name: 'Statistics',
-      component: Statistics,
-    },
-    {
-      title: '展示',
-      path: '/view',
-      name: 'PhotoView',
-      component: PhotoView,
-    },
-  ],
+  routes: reouterList,
 });
