@@ -1,7 +1,7 @@
 <template>
     <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
-      <template v-for="item in reouterList">
-          <el-menu-item :index="item.path" :key="item.name">{{item.title}}</el-menu-item>
+      <template v-for="route in routes">
+          <el-menu-item :index="route.path" :key="route.name">{{route.title}}</el-menu-item>
       </template>
     </el-menu>
 </template>
@@ -9,7 +9,7 @@
 
 <script>
 
-import router, { reouterList } from '@/renderer/router'
+import router, { routes } from '@/renderer/router'
 
 export default {
   name: 'TopMenu',
@@ -23,7 +23,7 @@ export default {
 
    data () {
     return {
-      reouterList,
+      routes,
     }
   }
 

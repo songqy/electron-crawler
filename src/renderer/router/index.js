@@ -6,7 +6,7 @@ import Statistics from '@p/Statistics';
 
 Vue.use(Router);
 
-export const reouterList = [
+export const routes = [
   {
     title: '爬虫',
     path: '/crawler',
@@ -28,5 +28,5 @@ export const reouterList = [
 ];
 
 export default new Router({
-  routes: reouterList,
+  routes,
 });
