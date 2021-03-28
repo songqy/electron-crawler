@@ -1,6 +1,7 @@
 <template>
     <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
       <el-menu-item index="/crawler">爬虫</el-menu-item>
+      <el-menu-item index="/statistics">统计</el-menu-item>
       <el-menu-item index="/view">展示</el-menu-item>
     </el-menu>
 </template>

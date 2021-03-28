@@ -49,3 +49,9 @@ export interface ViewPhotoState {
     /** 当前选中项 */
     parent: string,
 }
+
+
+export interface StatisticsState {
+    rankCount: number[],
+    totalCount: number,
+}

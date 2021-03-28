@@ -1,6 +1,6 @@
 import { crawlerMain } from '@/main/service/crawler';
 import { getDirsByParent, setInfo } from '@/main/service/viewPhoto';
-import { startStatistics } from '@/main/service/statistics';
+import { startStatistics, getRankCount } from '@/main/service/statistics';
 
 const actions = [
   {
@@ -18,6 +18,10 @@ const actions = [
   {
     key: 'startStatistics',
     action: startStatistics,
+  },
+  {
+    key: 'getRankCount',
+    action: getRankCount,
   },
 ];
 
