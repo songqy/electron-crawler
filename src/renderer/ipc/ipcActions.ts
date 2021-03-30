@@ -1,5 +1,6 @@
 import { logMessage, errorMessage } from '../service/logger';
 import { formatDirs } from '../service/viewPhoto';
+import { setRankCount } from '../service/statistics';
 
 const actions = [
   {
@@ -13,6 +14,10 @@ const actions = [
   {
     key: 'dirsByParent',
     action: formatDirs,
+  },
+  {
+    key: 'getRankCount',
+    action: setRankCount,
   },
 ];
 

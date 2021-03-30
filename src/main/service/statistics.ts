@@ -11,7 +11,10 @@ const fileDir = config.fileDir;
 const getFileTree = async (parent: string): Promise<File[]> => {
   const fileList: File[] = [];
   if (!utils.isDir(parent)) return fileList;
-  //   console.log(parent);
+  if (parent.split('/').length === 2) {
+    logger.log(parent);
+  }
+
   const res = await getDirsByParent({ parent: parent || '/' });
   if (res.files.length > 0) {
     for (const file of res.files) {
@@ -94,13 +97,7 @@ const groupRanks = (fileList: File[]) => {
   logger.log('rank4 count:', rank4.length);
   logger.log('rank5 count:', rank5.length);
 
-  const treeRank1 = parseTree(rank1);
-  const treeRank2 = parseTree(rank2);
-  const treeRank3 = parseTree(rank3);
-  const treeRank4 = parseTree(rank4);
-  const treeRank5 = parseTree(rank5);
-
-  return { treeRank1, treeRank2, treeRank3, treeRank4, treeRank5 };
+  return { rank1, rank2, rank3, rank4, rank5 };
 };
 
 export const startStatistics = async (forced = true): Promise<void> => {
@@ -113,18 +110,39 @@ export const startStatistics = async (forced = true): Promise<void> => {
     fileList = obj.fileList;
   } else {
     fileList = await getFileTree('');
-
-    const str = JSON.stringify({ fileList });
-
-    await writeFile(statisticsFile, str);
   }
 
 
-  const { treeRank1, treeRank2, treeRank3, treeRank4, treeRank5 } = groupRanks(fileList);
+  const { rank1, rank2, rank3, rank4, rank5 } = groupRanks(fileList);
+
+  const str = JSON.stringify({
+    fileList,
+    rankCount: [rank1.length, rank2.length, rank3.length, rank4.length, rank5.length],
+  });
+  await writeFile(statisticsFile, str);
+
+
+  const treeRank1 = parseTree(rank1);
+  const treeRank2 = parseTree(rank2);
+  const treeRank3 = parseTree(rank3);
+  const treeRank4 = parseTree(rank4);
+  const treeRank5 = parseTree(rank5);
 
   await writeFile(path.join(fileDir, 'rank1.txt'), JSON.stringify({ fileList: treeRank1 }));
   await writeFile(path.join(fileDir, 'rank2.txt'), JSON.stringify({ fileList: treeRank2 }));
   await writeFile(path.join(fileDir, 'rank3.txt'), JSON.stringify({ fileList: treeRank3 }));
   await writeFile(path.join(fileDir, 'rank4.txt'), JSON.stringify({ fileList: treeRank4 }));
   await writeFile(path.join(fileDir, 'rank5.txt'), JSON.stringify({ fileList: treeRank5 }));
+};
+
+
+export const getRankCount = async(): Promise<number[]> => {
+  let rankCount = [0, 0, 0, 0, 0];
+  const statisticsFile = path.join(fileDir, 'statistics.txt');
+  if (await existsFile(statisticsFile)) {
+    const s = await readFile(statisticsFile);
+    const obj = JSON.parse(s.toString());
+    rankCount = obj.rankCount;
+  }
+  return rankCount;
 };

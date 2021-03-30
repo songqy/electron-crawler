@@ -46,8 +46,6 @@ const needFetchChildren = (files, parent) => {
 
 
 export default {
-  name: 'PhotoView',
-
   mounted: function () {
       console.log('viewType',store.state.viewType)
       if(store.state.viewType === 'default') {

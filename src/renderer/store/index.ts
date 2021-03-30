@@ -4,6 +4,7 @@ import { RootState } from '../interface';
 
 import logger from './logger';
 import viewPhoto from './viewPhoto';
+import statistics from './statistics';
 
 Vue.use(Vuex);
 
@@ -16,6 +17,7 @@ const store: StoreOptions<RootState> = {
   modules: {
     logger,
     viewPhoto,
+    statistics,
   },
 };
 

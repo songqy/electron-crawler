@@ -1,14 +1,15 @@
 <template>
     <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
-      <el-menu-item index="/crawler">爬虫</el-menu-item>
-      <el-menu-item index="/view">展示</el-menu-item>
+      <template v-for="route in routes">
+          <el-menu-item :index="route.path" :key="route.name">{{route.title}}</el-menu-item>
+      </template>
     </el-menu>
 </template>
 
 
 <script>
 
-import router from '@/renderer/router'
+import router, { routes } from '@/renderer/router'
 
 export default {
   name: 'TopMenu',
@@ -19,6 +20,12 @@ export default {
         router.push(value)
     }
   },
+
+   data () {
+    return {
+      routes,
+    }
+  }
 
 }
 </script>
