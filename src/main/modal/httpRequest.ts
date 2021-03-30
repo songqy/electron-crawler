@@ -12,14 +12,14 @@ async function httpGetBuffer(url: string, options: OptionsOfBufferResponseBody):
 export default {
   async httpGetHtml(url: string, cnt = 1): Promise<Buffer | undefined> {
     let res: Buffer | undefined;
-    const startTime = (new Date()).getTime();
+    const startTime = Date.now();
     try {
       res = await httpGetBuffer(url, {
         timeout: config.pageTimeout,
         responseType: 'buffer',
       });
     } catch (e) {
-      const endTime = (new Date()).getTime();
+      const endTime = Date.now();
       logger.error(`请求失败${cnt}次,time:${endTime - startTime}ms,url:${url},err:`, e);
       await utils.sleep(1000);
 
@@ -32,7 +32,7 @@ export default {
 
   async httpGetImg(url: string, originUrl?: string, cnt = 1): Promise<Buffer | undefined>  {
     let res: Buffer | undefined;
-    const startTime = (new Date()).getTime();
+    const startTime = Date.now();
     try {
       res = await httpGetBuffer(url, {
         timeout: config.imageTimeout,
@@ -43,7 +43,7 @@ export default {
         },
       });
     } catch (e) {
-      const endTime = (new Date()).getTime();
+      const endTime = Date.now();
       logger.error(`请求失败${cnt}次,time:${endTime - startTime}ms,url:${url},err:`, e);
       await utils.sleep(1000);
 
