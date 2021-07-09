@@ -3,7 +3,7 @@
  */
 
 import path from 'path';
-import { Plugin, Configuration } from 'webpack';
+import { Configuration, WebpackPluginInstance } from 'webpack';
 import Dotenv from 'dotenv-webpack';
 import pkg from '../package.json';
 
@@ -13,7 +13,7 @@ function resolve (dir: string) {
   return path.join(__dirname, '..', dir);
 }
 
-const plugins: Plugin[] = [
+const plugins: WebpackPluginInstance[] = [
   new Dotenv(),
 ];
 

@@ -1,5 +1,5 @@
 import path from 'path';
-import { Plugin } from 'webpack';
+import { WebpackPluginInstance } from 'webpack';
 import { merge } from 'webpack-merge';
 import baseConfig from './webpack.base.config';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
@@ -10,7 +10,7 @@ const srcPath = path.resolve(rootPath, 'src');
 
 const isDev = process.env.NODE_ENV === 'development';
 
-const plugins: Plugin[] = [new CleanWebpackPlugin()];
+const plugins: WebpackPluginInstance[] = [new CleanWebpackPlugin()];
 
 if (isDev) {
   plugins.push(new HtmlWebpackPlugin({
@@ -22,7 +22,8 @@ if (isDev) {
 
 export default merge(baseConfig, {
   mode: isDev ? 'development' : 'production',
-  devtool: 'cheap-module-eval-source-map',
+  // devtool: 'cheap-module-eval-source-map',
+  devtool: 'eval-source-map',
   entry: [path.resolve(srcPath, './main/main.ts')],
   output: {
     path: path.resolve(rootPath, 'build'),

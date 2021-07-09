@@ -1,7 +1,7 @@
 import path from 'path';
 import { spawn } from 'child_process';
-import { Plugin, HotModuleReplacementPlugin } from 'webpack';
-import { Configuration } from 'webpack-dev-server';
+import { HotModuleReplacementPlugin, WebpackPluginInstance } from 'webpack';
+import { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 import { merge } from 'webpack-merge';
 import baseConfig from './webpack.base.config';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -15,12 +15,13 @@ const srcPath = path.resolve(rootPath, 'src');
 
 const port = Number(process.env.PORT) || 3341;
 const publicPath = `http://localhost:${port}/dist`;
-const plugins: Plugin[] = [
+const plugins: WebpackPluginInstance[] = [
   new HtmlWebpackPlugin({
     filename: 'app.html',
     template: path.resolve(srcPath, 'app.html'),
     inject: true,
   }),
+  //@ts-ignore
   new VueLoaderPlugin(),
   new MiniCssExtractPlugin({
     filename: 'style.css',
@@ -28,7 +29,7 @@ const plugins: Plugin[] = [
 ];
 
 let outputConfig = {};
-let devServer: Configuration | undefined;
+let devServer: DevServerConfiguration | undefined;
 
 if (isDev) {
   plugins.push(
@@ -72,7 +73,7 @@ if (isDev) {
 
 export default merge(baseConfig, {
   mode: isDev ? 'development' : 'production',
-  devtool: 'inline-source-map',
+  devtool: 'eval-source-map',
   entry: [path.resolve(srcPath, './renderer/index.js')],
   output: {
     ...outputConfig,

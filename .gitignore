@@ -3,6 +3,8 @@
 
 .DS_Store
 
+/.vscode
+
 /build
 /release
 /file_assest
