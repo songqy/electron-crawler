@@ -16,8 +16,8 @@
 
 export default {
   name: 'TreeSubMenu',
-  props: ['file']
-}
+  props: ['file'],
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

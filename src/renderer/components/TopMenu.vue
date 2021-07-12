@@ -9,7 +9,7 @@
 
 <script>
 
-import router, { routes } from '@/renderer/router'
+import { routes } from '@/renderer/router';
 
 export default {
   name: 'TopMenu',
@@ -17,17 +17,17 @@ export default {
 
   methods: {
     handleSelect: function (value) {
-        router.push(value)
-    }
+      this.$router.push(value);
+    },
   },
 
-   data () {
+  data () {
     return {
       routes,
-    }
-  }
+    };
+  },
 
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

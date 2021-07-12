@@ -21,8 +21,6 @@ import ipc from './ipc';
 import store from './store';
 
 import TopMenu from '@c/TopMenu';
-import TreeMenu from '@c/TreeMenu';
-import TreeSubMenu from '@c/TreeSubMenu';
 
 ipc.init();
 
@@ -40,8 +38,6 @@ Vue.use(RadioButton);
 Vue.use(RadioGroup);
 
 Vue.component(TopMenu.name, TopMenu);
-Vue.component(TreeMenu.name, TreeMenu);
-Vue.component(TreeSubMenu.name, TreeSubMenu);
 
 /* eslint-disable no-new */
 new Vue({

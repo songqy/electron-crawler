@@ -6,15 +6,15 @@
 
 <script>
 
-import router from '@/renderer/router'
+import router from '@/renderer/router';
 
 export default {
   name: 'App',
 
   mounted: function() {
-    router.push('/crawler')
+    router.push('/crawler');
   },
-}
+};
 </script>
 
 <style >

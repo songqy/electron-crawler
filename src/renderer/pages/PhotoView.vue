@@ -28,6 +28,7 @@
 <script>
 
 import { createNamespacedHelpers } from 'vuex';
+import TreeMenu from '../components/TreeMenu';
 import { getDirsByParent, setInfo } from '../service/viewPhoto';
 
 const { mapState, mapActions } = createNamespacedHelpers('viewPhoto');
@@ -44,6 +45,7 @@ const needFetchChildren = (files, parent) => {
 
 
 export default {
+  components: { TreeMenu },
   mounted: function () {
     console.log('viewType', this.$store.state.viewType);
     if (this.$store.state.viewType === 'default') {

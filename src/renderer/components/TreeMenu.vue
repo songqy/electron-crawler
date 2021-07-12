@@ -11,18 +11,20 @@
 </template>
 
 <script>
+import TreeSubMenu from './TreeSubMenu';
 
 export default {
   name: 'TreeMenu',
   props: ['files'],
+  components: { TreeSubMenu },
 
   methods: {
     handleSelect: function (value) {
-      this.$emit('onSelect', value)
-    }
-  }
+      this.$emit('onSelect', value);
+    },
+  },
 
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
