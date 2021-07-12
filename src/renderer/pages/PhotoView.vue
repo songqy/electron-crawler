@@ -22,38 +22,36 @@
         </div>
       </div>
     </div>
-    
   </div>
 </template>
 
 <script>
 
-import { createNamespacedHelpers } from 'vuex'
-import { getDirsByParent, setInfo } from '../service/viewPhoto'
-import store from '../store'
+import { createNamespacedHelpers } from 'vuex';
+import { getDirsByParent, setInfo } from '../service/viewPhoto';
 
-const { mapState, mapActions } = createNamespacedHelpers('viewPhoto')
+const { mapState, mapActions } = createNamespacedHelpers('viewPhoto');
 
 const needFetchChildren = (files, parent) => {
-  if(parent === '/') return true;
+  if (parent === '/') return true;
   const values = parent.split('/').slice(1);
-  let target = files
+  let target = files;
   values.forEach(value => {
-    target = target.find(file => file.filePath === value).children
-  })
-  return !(target && target.length > 0)
-}
+    target = target.find(file => file.filePath === value).children;
+  });
+  return !(target && target.length > 0);
+};
 
 
 export default {
   mounted: function () {
-      console.log('viewType',store.state.viewType)
-      if(store.state.viewType === 'default') {
-        getDirsByParent();
-      }else{
-        getDirsByParent('/', store.state.viewType);
-      }
-      
+    console.log('viewType', this.$store.state.viewType);
+    if (this.$store.state.viewType === 'default') {
+      getDirsByParent();
+    } else {
+      getDirsByParent('/', this.$store.state.viewType);
+    }
+
   },
 
   computed: {
@@ -63,7 +61,7 @@ export default {
       imgs: state => state.imgs,
       info: state => state.info,
       parent: state => state.parent,
-    })
+    }),
   },
 
   methods: {
@@ -74,14 +72,14 @@ export default {
       if (needFetchChildren(this.files, parent)) {
         getDirsByParent(parent);
       } else {
-        this.refreshImgs(parent)
+        this.refreshImgs(parent);
       }
     },
     rankChange() {
-        setInfo(this.info, this.parent)
-    }
+      setInfo(this.info, this.parent);
+    },
   },
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

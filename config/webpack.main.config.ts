@@ -23,7 +23,7 @@ if (isDev) {
 export default merge(baseConfig, {
   mode: isDev ? 'development' : 'production',
   // devtool: 'cheap-module-eval-source-map',
-  devtool: 'eval-source-map',
+  devtool: isDev ? 'eval-source-map' : undefined,
   entry: [path.resolve(srcPath, './main/main.ts')],
   output: {
     path: path.resolve(rootPath, 'build'),

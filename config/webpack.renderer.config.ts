@@ -73,7 +73,7 @@ if (isDev) {
 
 export default merge(baseConfig, {
   mode: isDev ? 'development' : 'production',
-  devtool: 'eval-source-map',
+  devtool: isDev ? 'eval-source-map' : undefined,
   entry: [path.resolve(srcPath, './renderer/index.js')],
   output: {
     ...outputConfig,

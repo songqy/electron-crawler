@@ -21,8 +21,7 @@ module.exports = {
     sourceType: 'module',
     ecmaVersion: 7,
   },
-  plugins: [
-  ],
+  plugins: [],
   overrides: [
     {
       files: ['*.ts'],
@@ -48,6 +47,26 @@ module.exports = {
         '@typescript-eslint/restrict-plus-operands': 0,
         '@typescript-eslint/ban-ts-comment': 0,
       },
+    },
+    {
+      files: ['*.vue'],
+      extends: [
+        'eslint:recommended',
+        'plugin:vue/essential',
+      ],
+      parser: 'vue-eslint-parser',
+      parserOptions: {
+        parser: 'babel-eslint',
+        ecmaFeatures: {
+          experimentalObjectRestSpread: true,
+          jsx: true,
+        },
+        sourceType: 'module',
+        ecmaVersion: 7,
+      },
+      plugins: [
+        'vue',
+      ],
     },
   ],
   rules: {

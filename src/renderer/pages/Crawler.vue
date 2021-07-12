@@ -21,59 +21,58 @@
 
 <script>
 
-import { createNamespacedHelpers, mapState as mapStateRoot } from 'vuex'
-import pkg from '../../../package.json'
-import { crawlerMain, startStatistics } from '../service/crawler'
-import store from '../store'
+import { createNamespacedHelpers } from 'vuex';
+import pkg from '../../../package.json';
+import { crawlerMain } from '../service/crawler';
 
-const { mapState } = createNamespacedHelpers('logger')
+const { mapState } = createNamespacedHelpers('logger');
 
 export default {
   s1: null,
   s2: null,
 
   mounted: function () {
-    console.log('baseUrl1',process.env.baseUrl1)
-    console.log('baseUrl2',process.env.baseUrl2)
-    console.log('app version', pkg.version)
-    console.log('node version',process.versions.node)
-    console.log('electron version',process.versions.electron)
-    console.log('chrome version',process.versions.chrome)
+    console.log('baseUrl1', process.env.baseUrl1);
+    console.log('baseUrl2', process.env.baseUrl2);
+    console.log('app version', pkg.version);
+    console.log('node version', process.versions.node);
+    console.log('electron version', process.versions.electron);
+    console.log('chrome version', process.versions.chrome);
   },
 
   computed: {
     ...mapState({
       loggerMessages: state => state.loggerMessages,
-    })
+    }),
   },
 
   methods: {
     handleStart: function() {
-      crawlerMain()
+      crawlerMain();
     },
 
     handleStartS1: function() {
-      console.log('s1',this.s1)
-      if(this.s1) {
-        crawlerMain({s1: this.s1})
-      } 
+      console.log('s1', this.s1);
+      if (this.s1) {
+        crawlerMain({ s1: this.s1 });
+      }
     },
 
     handleStartS2: function() {
-      console.log('s2',this.s2)
-      if(this.s2) {
-        crawlerMain({s2: this.s2})
+      console.log('s2', this.s2);
+      if (this.s2) {
+        crawlerMain({ s2: this.s2 });
       }
-    }
+    },
   },
 
   data () {
     return {
       s1: this.s1,
       s2: this.s2,
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

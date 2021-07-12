@@ -31,16 +31,15 @@
 
 <script>
 
-import { createNamespacedHelpers, mapState as mapStateRoot } from 'vuex'
-import { startStatistics, getRankCount } from '../service/statistics'
-import store from '../store'
+import { createNamespacedHelpers } from 'vuex';
+import { startStatistics, getRankCount } from '../service/statistics';
 
-const { mapState } = createNamespacedHelpers('statistics')
-const { mapState: mapStateLogger } = createNamespacedHelpers('logger')
+const { mapState } = createNamespacedHelpers('statistics');
+const { mapState: mapStateLogger } = createNamespacedHelpers('logger');
 
 export default {
   mounted: function () {
-      getRankCount()
+    getRankCount();
   },
 
   computed: {
@@ -52,17 +51,17 @@ export default {
       loggerMessages: state => state.loggerMessages,
     }),
     viewType: {
-      get: () => store.state.viewType,
-      set: (val) => store.state.viewType = val,
-    }
+      get() {return this.$store.state.viewType;},
+      set(val) {this.$store.state.viewType = val;},
+    },
   },
 
   methods: {
     handleStatistics: function() {
-      startStatistics()
+      startStatistics();
     },
   },
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
